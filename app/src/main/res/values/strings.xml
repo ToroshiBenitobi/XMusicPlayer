@@ -6,4 +6,15 @@
     <string name="title_local">Local</string>
     <string name="title_library">Library</string>
     <string name="title_recent_activity">Recent Activity</string>
+    <string name="permission_granted">Permission Granted.</string>
+    <string name="unknown_artist">Unknown Artist</string>
+    <string name="song">Song</string>
+    <string name="songs">Songs</string>
+    <string name="unplayable_file">Could not play this song.</string>
+    <string name="audio_focus_denied">Audio focus denied.</string>
+    <string name="playlist_is_empty">Playlist is empty.</string>
+    <string name="added_title_to_playing_queue">Added 1 title to the playing queue.</string>
+    <string name="added_x_titles_to_playing_queue">Added %1$d titles to the playing queue.</string>
+    <string name="album">Album</string>
+    <string name="albums">Albums</string>
 </resources>
