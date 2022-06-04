@@ -19,6 +19,7 @@ import org.annatv.musicplayer.adapter.holder.StandardViewHolder;
 import org.annatv.musicplayer.databinding.ItemStandardBinding;
 import org.annatv.musicplayer.entity.Album;
 import org.annatv.musicplayer.entity.Song;
+import org.annatv.musicplayer.helper.MusicPlayerRemote;
 import org.annatv.musicplayer.loader.AlbumLoader;
 import org.annatv.musicplayer.ui.RecycleViewInterface;
 import org.jetbrains.annotations.NotNull;
@@ -72,19 +73,25 @@ public class SongRecyclerViewAdapter extends RecyclerView.Adapter<SongRecyclerVi
         holder.binding.itemStandardMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("TAG", "onClick: ");
                 holder.popupMenu = new PopupMenu(activity, view);
                 holder.popupMenu.inflate(holder.getMenuRes());
                 holder.popupMenu.setOnMenuItemClickListener(menuItem -> {
                     if (recycleViewInterface != null) {
                         if (position != RecyclerView.NO_POSITION) {
-                            Log.d("TAG", "onClick: item click" + menuItem.getItemId() + position);
                             return recycleViewInterface.onItemMenuClick(menuItem.getItemId(), position);
                         }
                     }
                     return false;
                 });
                 holder.popupMenu.show();
+            }
+        });
+
+        holder.itemView.setOnClickListener(view -> {
+            if (recycleViewInterface != null) {
+                if (position != RecyclerView.NO_POSITION) {
+                    MusicPlayerRemote.openQueue(songList, position, true);
+                }
             }
         });
 

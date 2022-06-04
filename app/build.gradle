@@ -51,4 +51,9 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation 'com.google.code.gson:gson:2.9.0'
 
+    repositories {
+        mavenCentral()
+    }
+    compile 'com.sothree.slidinguppanel:library:3.4.0'
+
 }
