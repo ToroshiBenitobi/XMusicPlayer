@@ -18,6 +18,7 @@ public class Song implements Parcelable {
     public final long artistId;
     public final String artistName;
 
+
     public Song(long id, String title, int trackNumber, int year, long duration, String data, long dateModified, long albumId, String albumName, long artistId, String artistName) {
         this.id = id;
         this.title = title;
@@ -30,6 +31,7 @@ public class Song implements Parcelable {
         this.albumName = albumName;
         this.artistId = artistId;
         this.artistName = artistName;
+
     }
 
     public static Song getEmptySong() {

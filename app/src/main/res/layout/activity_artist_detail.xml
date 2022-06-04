@@ -8,6 +8,7 @@
     tools:context=".ui.AlbumDetailActivity">
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" tools:layout_editor_absoluteY="259dp"
-            tools:layout_editor_absoluteX="169dp" android:id="@+id/recycleViewAlbumDetail"/>
+            android:layout_height="match_parent"
+            android:id="@+id/recycleViewArtistDetail" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

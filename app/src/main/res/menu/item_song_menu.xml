@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/action_sing_add_to_queue" android:id="@+id/actionSingAddToQueue"/>
+    <item android:title="@string/action_sing_add_to_playlist" android:id="@+id/actionSingAddToPlaylist"/>
+    <item android:title="@string/action_sing_go_to_album" android:id="@+id/actionSingGoToAlbum"/>
+    <item android:title="@string/action_sing_go_to_artist" android:id="@+id/actionSingGoToArtist"/>
+</menu>

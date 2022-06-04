@@ -1,7 +1,13 @@
 package org.annatv.musicplayer.adapter.album;
 
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +17,8 @@ import org.annatv.musicplayer.adapter.song.SongRecyclerViewAdapter;
 import org.annatv.musicplayer.databinding.ItemStandardBinding;
 import org.annatv.musicplayer.entity.Album;
 import org.annatv.musicplayer.entity.Song;
+import org.annatv.musicplayer.loader.AlbumLoader;
+import org.annatv.musicplayer.ui.RecycleViewInterface;
 import org.annatv.musicplayer.util.MusicUtil;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,10 +28,16 @@ import java.util.List;
 public class AlbumRecyclerAdapter extends RecyclerView.Adapter<AlbumRecyclerAdapter.ViewHolder> {
     AppCompatActivity activity;
     List<Album> albumList = new ArrayList<>();
+    private final RecycleViewInterface recycleViewInterface;
 
-    public AlbumRecyclerAdapter(AppCompatActivity activity, List<Album> albumList) {
+    public AlbumRecyclerAdapter(AppCompatActivity activity, RecycleViewInterface recycleViewInterface, List<Album> albumList) {
         this.activity = activity;
+        this.recycleViewInterface = recycleViewInterface;
         this.albumList = albumList;
+    }
+
+    public List<Album> getAlbumList() {
+        return albumList;
     }
 
     @NonNull
@@ -31,32 +45,36 @@ public class AlbumRecyclerAdapter extends RecyclerView.Adapter<AlbumRecyclerAdap
     @Override
     public AlbumRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-//        View itemView = layoutInflater.inflate(R.layout.item_standard, parent, false);
-//        SongRecyclerViewAdapter.ViewHolder viewHolder = new SongRecyclerViewAdapter.ViewHolder(itemView);
-//        viewHolder.binding = ItemStandardBinding.bind(itemView);
         ItemStandardBinding binding = ItemStandardBinding.inflate(layoutInflater, parent, false);
-        return new AlbumRecyclerAdapter.ViewHolder(binding);
+        return new AlbumRecyclerAdapter.ViewHolder(binding, recycleViewInterface);
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull AlbumRecyclerAdapter.ViewHolder holder, int position) {
         final Album album = albumList.get(position);
-        if (holder.binding.itemStandardTitle != null) {
-            holder.binding.itemStandardTitle.setText(album.getTitle());
-        }
-        if (holder.binding.itemStandardText != null) {
-            holder.binding.itemStandardText.setText(MusicUtil.getAlbumInfoString(activity, album));
+        holder.binding.itemStandardTitle.setText(album.getTitle());
+        holder.binding.itemStandardText.setText(MusicUtil.getAlbumInfoString(activity, album));
 //            holder.textView.setVisibility(View.GONE);
-        }
-        if (holder.binding.itemStandardMenu != null) {
 
-        }
-        if (holder.binding.itemStandardImage != null) {
-            final int padding = activity.getResources().getDimensionPixelSize(R.dimen.default_item_margin) / 2;
-            holder.binding.itemStandardImage.setPadding(padding, padding, padding, padding);
-            holder.binding.itemStandardImage.setImageResource(R.drawable.ic_timer_white_24dp);
-        }
+        final int padding = activity.getResources().getDimensionPixelSize(R.dimen.default_item_margin) / 2;
+        holder.binding.itemStandardImage.setPadding(padding, padding, padding, padding);
+        holder.binding.itemStandardImage.setImageBitmap(BitmapFactory.decodeFile(AlbumLoader.getAlbumArt(activity, album.getId())));
+
+        holder.binding.itemStandardMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.popupMenu = new PopupMenu(activity, view);
+                holder.popupMenu.inflate(holder.getMenuRes());
+                holder.popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        return recycleViewInterface.onItemMenuClick(menuItem.getItemId(), position);
+                    }
+                });
+                holder.popupMenu.show();
+            }
+        });
 
     }
 
@@ -68,26 +86,23 @@ public class AlbumRecyclerAdapter extends RecyclerView.Adapter<AlbumRecyclerAdap
     static class ViewHolder extends StandardViewHolder {
         protected ItemStandardBinding binding;
 
-        public ViewHolder(@NonNull ItemStandardBinding binding) {
+        public ViewHolder(@NonNull ItemStandardBinding binding, RecycleViewInterface recycleViewInterface) {
             super(binding.getRoot());
             this.binding = binding;
+
+            itemView.setOnClickListener(view -> {
+                if (recycleViewInterface != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        recycleViewInterface.onItemClick(position);
+                    }
+                }
+            });
         }
 
-//        @Override
-//        protected int getSongMenuRes() {
-//            return R.menu.menu_item_cannot_delete_single_songs_playlist_song;
-//        }
-//
-//        @Override
-//        protected boolean onSongMenuItemClick(MenuItem item) {
-//            if (item.getItemId() == R.id.action_go_to_album) {
-//                Pair[] albumPairs = new Pair[]{
-//                        Pair.create(image, activity.getString(R.string.transition_album_art))
-//                };
-//                NavigationUtil.goToAlbum(activity, dataSet.get(getAdapterPosition() - 1).albumId, albumPairs);
-//                return true;
-//            }
-//            return super.onSongMenuItemClick(item);
-//        }
+        @Override
+        public int getMenuRes() {
+            return 0;
+        }
     }
 }

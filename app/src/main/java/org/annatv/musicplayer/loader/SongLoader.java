@@ -88,7 +88,6 @@ public class SongLoader {
         final String albumName = cursor.getString(8);
         final long artistId = cursor.getLong(9);
         final String artistName = cursor.getString(10);
-
         return new Song(id, title, trackNumber, year, duration, data, dateModified, albumId, albumName, artistId, artistName);
     }
 

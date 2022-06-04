@@ -15,9 +15,11 @@ import org.annatv.musicplayer.adapter.album.AlbumRecyclerAdapter;
 import org.annatv.musicplayer.adapter.artist.ArtistRecyclerAdapter;
 import org.annatv.musicplayer.loader.AlbumLoader;
 import org.annatv.musicplayer.loader.ArtistLoader;
+import org.annatv.musicplayer.ui.RecycleViewInterface;
+import org.annatv.musicplayer.util.NavigationUtil;
 import org.jetbrains.annotations.NotNull;
 
-public class ArtistFragment extends Fragment {
+public class ArtistFragment extends Fragment implements RecycleViewInterface {
     RecyclerView recyclerView;
     ArtistRecyclerAdapter adapter;
     private ArtistViewModel mViewModel;
@@ -37,7 +39,7 @@ public class ArtistFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.listRecycleView);
-        adapter = new ArtistRecyclerAdapter((AppCompatActivity) getActivity(), ArtistLoader.getAllArtists(getActivity()));
+        adapter = new ArtistRecyclerAdapter((AppCompatActivity) getActivity(), this, ArtistLoader.getAllArtists(getActivity()));
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -45,4 +47,13 @@ public class ArtistFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void onItemClick(int position) {
+        NavigationUtil.goToArtist(getActivity(), adapter.getArtistList().get(position).getId());
+    }
+
+    @Override
+    public boolean onItemMenuClick(int id, int position) {
+        return false;
+    }
 }

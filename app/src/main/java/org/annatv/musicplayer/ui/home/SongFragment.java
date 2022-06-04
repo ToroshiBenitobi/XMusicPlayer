@@ -13,13 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import org.annatv.musicplayer.R;
 import org.annatv.musicplayer.adapter.song.SongRecyclerViewAdapter;
+import org.annatv.musicplayer.database.AppDatabase;
 import org.annatv.musicplayer.loader.SongLoader;
+import org.annatv.musicplayer.ui.RecycleViewInterface;
+import org.annatv.musicplayer.util.NavigationUtil;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * A fragment representing a list of Items.
  */
-public class SongFragment extends Fragment {
+public class SongFragment extends Fragment implements RecycleViewInterface {
     RecyclerView recyclerView;
     SongRecyclerViewAdapter adapter;
 
@@ -41,18 +44,6 @@ public class SongFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_song, container, false);
-
-        // Set the adapter
-//        if (view instanceof RecyclerView) {
-//            Context context = view.getContext();
-//            RecyclerView recyclerView = (RecyclerView) view;
-//            if (mColumnCount <= 1) {
-//                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-//            } else {
-//                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-//            }
-//            recyclerView.setAdapter(new SongRecyclerViewAdapter(DummyContent.ITEMS));
-//        }
         return view;
     }
 
@@ -61,12 +52,30 @@ public class SongFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.listRecycleView);
-        adapter = new SongRecyclerViewAdapter((AppCompatActivity)getActivity(),SongLoader.getAllSongs(getActivity()));
+        adapter = new SongRecyclerViewAdapter((AppCompatActivity) getActivity(), this, SongLoader.getAllSongs(getActivity()));
         Log.d("TAG", SongLoader.getAllSongs(getActivity()).toString());
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
+    }
+
+    @Override
+    public boolean onItemMenuClick(int id, int position) {
+        switch (id) {
+            case R.id.actionSingGoToAlbum:
+                NavigationUtil.goToAlbum(getActivity(), adapter.getSongList().get(position).getAlbumId());
+                return true;
+            case R.id.actionSingGoToArtist:
+                NavigationUtil.goToArtist(getActivity(), adapter.getSongList().get(position).getArtistId());
+        }
+        return false;
+
     }
 
 

@@ -1,5 +1,6 @@
 package org.annatv.musicplayer.util;
 
+import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.Context;
 import android.net.Uri;
@@ -12,12 +13,16 @@ import org.annatv.musicplayer.entity.Album;
 import org.annatv.musicplayer.entity.Artist;
 import org.annatv.musicplayer.entity.Song;
 import org.annatv.musicplayer.R;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class MusicUtil {
 
-//    public static Uri getMediaStoreAlbumCoverUri(long albumId) {
+    //    public static Uri getMediaStoreAlbumCoverUri(long albumId) {
 //        final Uri sArtworkUri = Uri.parse("content://media/external/audio/albumart");
 //
 //        return ContentUris.withAppendedId(sArtworkUri, albumId);
@@ -50,8 +55,8 @@ public class MusicUtil {
         int songCount = artist.getSongCount();
 
         return MusicUtil.buildInfoString(
-            MusicUtil.getAlbumCountString(context, albumCount),
-            MusicUtil.getSongCountString(context, songCount)
+                MusicUtil.getAlbumCountString(context, albumCount),
+                MusicUtil.getSongCountString(context, songCount)
         );
     }
 
@@ -60,8 +65,8 @@ public class MusicUtil {
         int songCount = album.getSongCount();
 
         return MusicUtil.buildInfoString(
-            album.getArtistName(),
-            MusicUtil.getSongCountString(context, songCount)
+                album.getArtistName(),
+                MusicUtil.getSongCountString(context, songCount)
         );
     }
 
@@ -100,20 +105,37 @@ public class MusicUtil {
         final String albumString = albumCount == 1 ? context.getResources().getString(R.string.album) : context.getResources().getString(R.string.albums);
         return albumCount + " " + albumString;
     }
-//
+
+    //
 //    @NonNull
 //    public static String getYearString(int year) {
 //        return year > 0 ? String.valueOf(year) : "-";
 //    }
 //
-//    public static long getTotalDuration(@NonNull final Context context, @NonNull List<Song> songs) {
-//        long duration = 0;
-//        for (int i = 0; i < songs.size(); i++) {
-//            duration += songs.get(i).duration;
-//        }
-//        return duration;
-//    }
-//
+    public static long getTotalDuration(@NonNull final Context context, @NonNull List<Song> songs) {
+        long duration = 0;
+        for (int i = 0; i < songs.size(); i++) {
+            duration += songs.get(i).duration;
+        }
+        return duration;
+    }
+
+    public static String getTotalDurationString(@NonNull final Context context, @NonNull List<Song> songs) {
+        long duration = getTotalDuration(context, songs);
+        @SuppressLint("DefaultLocale") String durationInfo = String.format("%02d:%02d:%02d", TimeUnit.SECONDS.toHours(duration), TimeUnit.SECONDS.toMinutes(duration) % 60, duration % 60);
+        return durationInfo;
+    }
+
+    public static String getAlbumTotalDurationString(@NonNull final Context context, @NonNull List<Album> albums) {
+        long duration = 0;
+        for (Album album : albums) {
+            duration += getTotalDuration(context, album.songs);
+        }
+        @SuppressLint("DefaultLocale") String durationInfo = String.format("%02d:%02d:%02d", TimeUnit.SECONDS.toHours(duration), TimeUnit.SECONDS.toMinutes(duration) % 60, duration % 60);
+        return durationInfo;
+    }
+
+    //
 //    public static String getReadableDurationString(long songDurationMillis) {
 //        long minutes = (songDurationMillis / 1000) / 60;
 //        long seconds = (songDurationMillis / 1000) % 60;
@@ -288,7 +310,8 @@ public class MusicUtil {
         artistName = artistName.trim().toLowerCase();
         return artistName.equals("unknown") || artistName.equals("<unknown>");
     }
-//
+
+    //
 //    @NonNull
 //    public static String getSectionName(@Nullable String musicMediaTitle) {
 //        if (TextUtils.isEmpty(musicMediaTitle)) return "";

@@ -3,6 +3,7 @@ package org.annatv.musicplayer.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
+import org.annatv.musicplayer.loader.AlbumLoader;
 
 import java.util.ArrayList;
 import java.util.List;

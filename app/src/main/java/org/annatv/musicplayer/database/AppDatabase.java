@@ -5,13 +5,15 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import org.annatv.musicplayer.dao.PlaylistDao;
+import org.annatv.musicplayer.dao.PlaylistSongDao;
 import org.annatv.musicplayer.entity.Playlist;
+import org.annatv.musicplayer.entity.PlaylistSong;
 
-@Database(entities = {Playlist.class}, version = 1, exportSchema = false)
+@Database(entities = {Playlist.class, PlaylistSong.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
 
-    static synchronized AppDatabase getInstance(Context context) {
+    public static synchronized AppDatabase getInstance(Context context) {
         if (INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "app_database")
                     .allowMainThreadQueries()
@@ -21,4 +23,6 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     public abstract PlaylistDao playlistDao();
+
+    public abstract PlaylistSongDao playlistSongDao();
 }

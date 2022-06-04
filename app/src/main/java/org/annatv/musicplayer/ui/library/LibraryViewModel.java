@@ -1,4 +1,4 @@
-package org.annatv.musicplayer.ui.notifications;
+package org.annatv.musicplayer.ui.library;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
