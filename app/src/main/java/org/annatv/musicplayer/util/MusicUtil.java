@@ -15,6 +15,7 @@ import org.annatv.musicplayer.entity.Song;
 import org.annatv.musicplayer.R;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -122,8 +123,7 @@ public class MusicUtil {
 
     public static String getTotalDurationString(@NonNull final Context context, @NonNull List<Song> songs) {
         long duration = getTotalDuration(context, songs);
-        @SuppressLint("DefaultLocale") String durationInfo = String.format("%02d:%02d:%02d", TimeUnit.SECONDS.toHours(duration), TimeUnit.SECONDS.toMinutes(duration) % 60, duration % 60);
-        return durationInfo;
+        return getTotalDurationString(duration);
     }
 
     public static String getAlbumTotalDurationString(@NonNull final Context context, @NonNull List<Album> albums) {
@@ -131,23 +131,23 @@ public class MusicUtil {
         for (Album album : albums) {
             duration += getTotalDuration(context, album.songs);
         }
-        @SuppressLint("DefaultLocale") String durationInfo = String.format("%02d:%02d:%02d", TimeUnit.SECONDS.toHours(duration), TimeUnit.SECONDS.toMinutes(duration) % 60, duration % 60);
-        return durationInfo;
+        return getTotalDurationString(duration);
     }
 
     //
-//    public static String getReadableDurationString(long songDurationMillis) {
-//        long minutes = (songDurationMillis / 1000) / 60;
-//        long seconds = (songDurationMillis / 1000) % 60;
-//        if (minutes < 60) {
-//            return String.format(Locale.getDefault(), "%01d:%02d", minutes, seconds);
-//        } else {
-//            long hours = minutes / 60;
-//            minutes = minutes % 60;
-//            return String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, seconds);
-//        }
-//    }
-//
+    public static String getTotalDurationString(long duration) {
+        long minutes = (duration) / 60;
+        long seconds = (duration) % 60;
+        if (minutes < 60) {
+            return String.format(Locale.getDefault(), "%01d:%02d", minutes, seconds);
+        } else {
+            long hours = minutes / 60;
+            minutes = minutes % 60;
+            return String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, seconds);
+        }
+    }
+
+    //
 //    /**
 //     * Build a concatenated string from the provided arguments
 //     * The intended purpose is to show extra annotations
@@ -296,14 +296,16 @@ public class MusicUtil {
 //        return PlaylistsUtil.doesPlaylistContain(context, getFavoritesPlaylist(context).id, song.id);
 //    }
 //
-//    public static void toggleFavorite(@NonNull final Context context, @NonNull final Song song) {
+    public static void toggleFavorite(@NonNull final Context context, @NonNull final Song song) {
 //        if (isFavorite(context, song)) {
 //            PlaylistsUtil.removeFromPlaylist(context, song, getFavoritesPlaylist(context).id);
 //        } else {
 //            PlaylistsUtil.addToPlaylist(context, song, getOrCreateFavoritesPlaylist(context).id, false);
 //        }
-//    }
-//
+// todo: toggle favorite
+    }
+
+    //
     public static boolean isArtistNameUnknown(@Nullable String artistName) {
         if (TextUtils.isEmpty(artistName)) return false;
         if (artistName.equals(Artist.DEFAULT_NAME)) return true;

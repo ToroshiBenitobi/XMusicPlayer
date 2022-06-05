@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import androidx.annotation.NonNull;
 import org.annatv.musicplayer.helper.SortOrder;
 import org.annatv.musicplayer.R;
+import org.annatv.musicplayer.ui.player.player.NowPlayingScreen;
 
 public final class PreferenceUtil {
     public static final String GENERAL_THEME = "general_theme";
@@ -88,6 +89,13 @@ public final class PreferenceUtil {
         return sInstance;
     }
 
+    public final NowPlayingScreen getNowPlayingScreen() {
+        int id = mPreferences.getInt(NOW_PLAYING_SCREEN_ID, 0);
+        for (NowPlayingScreen nowPlayingScreen : NowPlayingScreen.values()) {
+            if (nowPlayingScreen.id == id) return nowPlayingScreen;
+        }
+        return NowPlayingScreen.CARD;
+    }
 
     public void registerOnSharedPreferenceChangedListener(SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener) {
         mPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);

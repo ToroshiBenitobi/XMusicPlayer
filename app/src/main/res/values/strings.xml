@@ -26,5 +26,7 @@
     <string name="top_played">Top played</string>
     <string name="my_favourite">My favourite</string>
     <string name="add_playlist">Add playlist</string>
-
+    <string name="up_next">Up next</string>
+    <string name="card" translatable="false">Card</string>
+    <string name="flat" translatable="false">Flat</string>
 </resources>

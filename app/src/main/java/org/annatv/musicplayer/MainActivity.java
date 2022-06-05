@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -14,9 +15,11 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import org.annatv.musicplayer.ui.panel.MusicPanelActivity;
+import org.annatv.musicplayer.ui.player.player.MiniPlayerFragment;
 import org.jetbrains.annotations.NotNull;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends MusicPanelActivity {
     public static final int REQUEST_CODE = 1;
 
     @Override
@@ -33,6 +36,18 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .add(R.id.fragmentViewMiniPlayer, MiniPlayerFragment.class, null)
+                .commit();
+        fragmentContainerView = findViewById(R.id.fragmentViewMiniPlayer);
+        miniPlayerFragment = (MiniPlayerFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentViewMiniPlayer);
+    }
+
+    @Override
+    protected View createContentView() {
+        return null;
     }
 
     private void permission() {
