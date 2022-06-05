@@ -27,7 +27,6 @@ public abstract class MusicServiceActivity extends AppCompatActivity implements 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onServiceConnected: MusicServiceActivity");
         serviceToken = MusicPlayerRemote.bindToService(this, new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
@@ -106,6 +105,7 @@ public abstract class MusicServiceActivity extends AppCompatActivity implements 
     @Override
     public void onPlayingMetaChanged() {
         for (MusicServiceEventListener listener : mMusicServiceEventListeners) {
+            Log.d(TAG, "onPlayingMetaChanged: "+ listener.toString());
             if (listener != null) {
                 listener.onPlayingMetaChanged();
             }
@@ -167,6 +167,7 @@ public abstract class MusicServiceActivity extends AppCompatActivity implements 
 
         @Override
         public void onReceive(final Context context, @NonNull final Intent intent) {
+            Log.d(TAG, "onReceive:" + this.toString());
             final String action = intent.getAction();
             MusicServiceActivity activity = reference.get();
             if (activity != null) {

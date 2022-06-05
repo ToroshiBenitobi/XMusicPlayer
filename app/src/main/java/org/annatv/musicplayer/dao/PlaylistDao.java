@@ -1,5 +1,6 @@
 package org.annatv.musicplayer.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -11,7 +12,7 @@ import java.util.List;
 @Dao
 public interface PlaylistDao {
     @Query("SELECT * FROM playlist")
-    List<Playlist> getAll();
+    LiveData<List<Playlist>> getAll();
 
     @Query("SELECT * FROM playlist WHERE pid = :pid")
     Playlist loadAllByIds(int pid);

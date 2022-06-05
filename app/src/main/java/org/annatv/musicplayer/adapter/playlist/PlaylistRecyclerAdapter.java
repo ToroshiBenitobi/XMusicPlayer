@@ -11,6 +11,7 @@ import org.annatv.musicplayer.databinding.ItemAlbumDetailHeaderBinding;
 import org.annatv.musicplayer.databinding.ItemPlaylistBinding;
 import org.annatv.musicplayer.databinding.ItemStandardBinding;
 import org.annatv.musicplayer.entity.Playlist;
+import org.annatv.musicplayer.entity.Song;
 import org.annatv.musicplayer.ui.RecycleViewInterface;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,7 +22,7 @@ public class PlaylistRecyclerAdapter extends RecyclerView.Adapter<PlaylistRecycl
     List<Playlist> playlists;
     RecycleViewInterface recycleViewInterface;
 
-    public PlaylistRecyclerAdapter(AppCompatActivity activity,RecycleViewInterface recycleViewInterface, List<Playlist> playlists) {
+    public PlaylistRecyclerAdapter(AppCompatActivity activity, RecycleViewInterface recycleViewInterface, List<Playlist> playlists) {
         this.activity = activity;
         this.playlists = playlists;
         this.recycleViewInterface = recycleViewInterface;
@@ -42,23 +43,37 @@ public class PlaylistRecyclerAdapter extends RecyclerView.Adapter<PlaylistRecycl
             holder.binding.itemPlaylistTitle.setText(R.string.recent_played);
             holder.binding.itemPlaylistImage.setImageResource(R.drawable.ic_restore_white_24dp);
             holder.binding.itemPlaylistImage.setColorFilter(R.color.purple_700);
-
+            holder.binding.itemPlaylistMenu.setVisibility(View.VISIBLE);
         } else if (position == 1) {
             holder.binding.itemPlaylistTitle.setText(R.string.top_played);
             holder.binding.itemPlaylistImage.setImageResource(R.drawable.ic_trending_up_white_24dp);
             holder.binding.itemPlaylistImage.setColorFilter(R.color.purple_700);
+            holder.binding.itemPlaylistMenu.setVisibility(View.VISIBLE);
         } else if (position == 2) {
             holder.binding.itemPlaylistTitle.setText(R.string.my_favourite);
             holder.binding.itemPlaylistImage.setImageResource(R.drawable.ic_favorite_white_24dp);
             holder.binding.itemPlaylistImage.setColorFilter(R.color.purple_700);
+            holder.binding.itemPlaylistMenu.setVisibility(View.VISIBLE);
         } else if (position == getItemCount() - 1) {
             holder.binding.itemPlaylistTitle.setText(R.string.add_playlist);
             holder.binding.itemPlaylistImage.setImageResource(R.drawable.ic_playlist_add_white_24dp);
             holder.binding.itemPlaylistImage.setColorFilter(R.color.purple_700);
             holder.binding.itemPlaylistMenu.setVisibility(View.GONE);
         } else {
-
+            Playlist playlist = playlists.get(position - 3);
+            holder.binding.itemPlaylistTitle.setText(playlist.getName());
+            holder.binding.itemPlaylistImage.setImageResource(R.drawable.ic_queue_music_white_24dp);
+            holder.binding.itemPlaylistImage.setColorFilter(R.color.purple_700);
+            holder.binding.itemPlaylistMenu.setVisibility(View.VISIBLE);
         }
+        holder.itemView.setOnClickListener(view -> {
+            recycleViewInterface.onItemClick(position);
+        });
+    }
+
+    public void swapDataSet(List<Playlist> dataSet) {
+        this.playlists = dataSet;
+        notifyDataSetChanged();
     }
 
     @Override

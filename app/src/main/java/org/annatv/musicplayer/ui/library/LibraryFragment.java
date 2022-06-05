@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,8 +41,10 @@ public class LibraryFragment extends Fragment implements RecycleViewInterface {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recycleViewLibrary);
+        LiveData<List<Playlist>> a = libraryViewModel.getPlaylists();
+        List<Playlist> b = a.getValue();
         adapter = new PlaylistRecyclerAdapter((AppCompatActivity) getActivity(), this, new ArrayList<>());
-
+        libraryViewModel.getPlaylists().observe(this, playlists -> adapter.swapDataSet(playlists));
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -50,7 +53,10 @@ public class LibraryFragment extends Fragment implements RecycleViewInterface {
 
     @Override
     public void onItemClick(int position) {
-
+        if (position == adapter.getItemCount() - 1) {
+            Playlist playlist = new Playlist("a");
+            libraryViewModel.insertPlaylists(playlist);
+        }
     }
 
     @Override

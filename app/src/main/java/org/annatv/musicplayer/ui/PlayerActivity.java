@@ -20,7 +20,7 @@ import org.annatv.musicplayer.ui.panel.MusicServiceActivity;
 public class PlayerActivity extends MusicServiceActivity implements RecycleViewInterface {
     private ActivityPlayerBinding binding;
     PlayingQueueAdapter adapter;
-
+    ActionBar actionBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +32,7 @@ public class PlayerActivity extends MusicServiceActivity implements RecycleViewI
         binding.playerRecyclerView.setAdapter(adapter);
 
 
-        ActionBar actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
         actionBar.setTitle(MusicPlayerRemote.getCurrentSong().title);
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
@@ -63,12 +63,14 @@ public class PlayerActivity extends MusicServiceActivity implements RecycleViewI
     public void onServiceConnected() {
         updateQueue();
         updateIsFavorite();
+        updateActionBar();
     }
 
     @Override
     public void onPlayingMetaChanged() {
         updateIsFavorite();
         updateQueuePosition();
+        updateActionBar();
     }
 
     @Override
@@ -80,6 +82,7 @@ public class PlayerActivity extends MusicServiceActivity implements RecycleViewI
     public void onMediaStoreChanged() {
         updateQueue();
         updateIsFavorite();
+        updateActionBar();
     }
 
     private void updateQueue() {
@@ -92,5 +95,9 @@ public class PlayerActivity extends MusicServiceActivity implements RecycleViewI
 
     private void updateIsFavorite() {
 
+    }
+
+    private void updateActionBar() {
+        actionBar.setTitle(MusicPlayerRemote.getCurrentSong().title);
     }
 }

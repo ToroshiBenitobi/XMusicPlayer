@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "playlist")
 public class Playlist {
     @PrimaryKey(autoGenerate = true)
     public int pid;
