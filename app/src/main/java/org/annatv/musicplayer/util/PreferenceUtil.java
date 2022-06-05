@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 import androidx.annotation.NonNull;
 import org.annatv.musicplayer.helper.SortOrder;
 import org.annatv.musicplayer.R;
-import org.annatv.musicplayer.ui.player.player.NowPlayingScreen;
+import org.annatv.musicplayer.ui.player.NowPlayingScreen;
 
 public final class PreferenceUtil {
     public static final String GENERAL_THEME = "general_theme";

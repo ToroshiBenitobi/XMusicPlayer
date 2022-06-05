@@ -100,7 +100,8 @@ public class AlbumLoader {
             fos.close();
             filePath = art.getAbsolutePath();
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            return null;
         }
         return filePath;
     }

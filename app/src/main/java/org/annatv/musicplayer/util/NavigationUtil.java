@@ -1,18 +1,25 @@
 package org.annatv.musicplayer.util;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.media.audiofx.AudioEffect;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 import org.annatv.musicplayer.ui.AlbumDetailActivity;
 import org.annatv.musicplayer.ui.ArtistDetailActivity;
+import org.annatv.musicplayer.ui.PlayerActivity;
 
 public class NavigationUtil {
+
+    public static void goToPlayer(@NonNull final Activity activity, @Nullable Pair... sharedElements) {
+        final Intent intent = new Intent(activity, PlayerActivity.class);
+        if (sharedElements != null && sharedElements.length > 0) {
+            activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElements).toBundle());
+        } else {
+            activity.startActivity(intent);
+        }
+    }
 
     public static void goToArtist(@NonNull final Activity activity, final long artistId, @Nullable Pair... sharedElements) {
         final Intent intent = new Intent(activity, ArtistDetailActivity.class);

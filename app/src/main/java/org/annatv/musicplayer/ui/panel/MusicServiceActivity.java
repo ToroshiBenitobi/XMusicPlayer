@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.*;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class MusicServiceActivity extends AppCompatActivity implements MusicServiceEventListener {
-
+    public static final String TAG = "MusicServiceActivity";
     private final List<MusicServiceEventListener> mMusicServiceEventListeners = new ArrayList<>();
 
     private MusicPlayerRemote.ServiceToken serviceToken;
@@ -26,9 +27,11 @@ public abstract class MusicServiceActivity extends AppCompatActivity implements 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onServiceConnected: MusicServiceActivity");
         serviceToken = MusicPlayerRemote.bindToService(this, new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
+
                 MusicServiceActivity.this.onServiceConnected();
             }
 

@@ -1,4 +1,4 @@
-//package org.annatv.musicplayer.ui.player.player.flat;
+//package org.annatv.musicplayer.ui.player;
 //
 //import android.animation.Animator;
 //import android.animation.AnimatorSet;
@@ -49,29 +49,12 @@
 //import com.kabouzeid.gramophone.util.ViewUtil;
 //import com.kabouzeid.gramophone.views.WidthFitSquareLayout;
 //import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+//import org.annatv.musicplayer.ui.player.player.PlayerFragment;
 //
-//public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbumCoverFragment.Callbacks, SlidingUpPanelLayout.PanelSlideListener {
-//
-//    private Unbinder unbinder;
-//
-//    @BindView(R.id.player_status_bar)
-//    View playerStatusBar;
-//    @Nullable
-//    @BindView(R.id.toolbar_container)
-//    FrameLayout toolbarContainer;
-//    @BindView(R.id.player_toolbar)
-//    Toolbar toolbar;
-//    @Nullable
-//    @BindView(R.id.player_sliding_layout)
-//    SlidingUpPanelLayout slidingUpPanelLayout;
-//    @BindView(R.id.player_recycler_view)
-//    RecyclerView recyclerView;
-//    @BindView(R.id.player_queue_sub_header)
-//    TextView playerQueueSubHeader;
-//
+//public class CoverPlayerFragment extends PlayerFragment implements SlidingUpPanelLayout.PanelSlideListener {
 //    private int lastColor;
 //
-//    private FlatPlayerPlaybackControlsFragment playbackControlsFragment;
+//    private com.kabouzeid.gramophone.ui.fragments.player.flat.FlatPlayerPlaybackControlsFragment playbackControlsFragment;
 //    private PlayerAlbumCoverFragment playerAlbumCoverFragment;
 //
 //    private LinearLayoutManager layoutManager;
@@ -215,7 +198,7 @@
 //    }
 //
 //    private void setUpSubFragments() {
-//        playbackControlsFragment = (FlatPlayerPlaybackControlsFragment) getChildFragmentManager().findFragmentById(R.id.playback_controls_fragment);
+//        playbackControlsFragment = (com.kabouzeid.gramophone.ui.fragments.player.flat.FlatPlayerPlaybackControlsFragment) getChildFragmentManager().findFragmentById(R.id.playback_controls_fragment);
 //        playerAlbumCoverFragment = (PlayerAlbumCoverFragment) getChildFragmentManager().findFragmentById(R.id.player_album_cover_fragment);
 //
 //        playerAlbumCoverFragment.setCallbacks(this);
@@ -440,9 +423,9 @@
 //    }
 //
 //    private static abstract class BaseImpl implements Impl {
-//        protected FlatPlayerFragment fragment;
+//        protected CoverPlayerFragment fragment;
 //
-//        public BaseImpl(FlatPlayerFragment fragment) {
+//        public BaseImpl(CoverPlayerFragment fragment) {
 //            this.fragment = fragment;
 //        }
 //
@@ -477,7 +460,7 @@
 //        MediaEntryViewHolder currentSongViewHolder;
 //        Song currentSong = Song.EMPTY_SONG;
 //
-//        public PortraitImpl(FlatPlayerFragment fragment) {
+//        public PortraitImpl(CoverPlayerFragment fragment) {
 //            super(fragment);
 //        }
 //
@@ -554,7 +537,7 @@
 //
 //    @SuppressWarnings("ConstantConditions")
 //    private static class LandscapeImpl extends BaseImpl {
-//        public LandscapeImpl(FlatPlayerFragment fragment) {
+//        public LandscapeImpl(CoverPlayerFragment fragment) {
 //            super(fragment);
 //        }
 //

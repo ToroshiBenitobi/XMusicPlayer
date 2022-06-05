@@ -1,4 +1,4 @@
-package org.annatv.musicplayer.ui.player.player;
+package org.annatv.musicplayer.ui.player;
 
 import android.content.Context;
 import android.os.Bundle;

@@ -2,25 +2,13 @@ package org.annatv.musicplayer.ui.panel;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
-import android.annotation.SuppressLint;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.animation.PathInterpolator;
-import androidx.annotation.ColorInt;
-import androidx.annotation.FloatRange;
-import androidx.annotation.LayoutRes;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-import org.annatv.musicplayer.R;
 import org.annatv.musicplayer.helper.MusicPlayerRemote;
-import org.annatv.musicplayer.ui.player.player.MiniPlayerFragment;
-import org.annatv.musicplayer.ui.player.player.NowPlayingScreen;
-import org.annatv.musicplayer.util.PreferenceUtil;
+import org.annatv.musicplayer.ui.player.MiniPlayerFragment;
+import org.annatv.musicplayer.ui.player.NowPlayingScreen;
 
 public abstract class MusicPanelActivity extends MusicServiceActivity {
     public static final String TAG = "MusicPanelActivity";

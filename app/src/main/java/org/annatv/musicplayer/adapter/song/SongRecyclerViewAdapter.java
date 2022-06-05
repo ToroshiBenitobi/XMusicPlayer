@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SongRecyclerViewAdapter extends RecyclerView.Adapter<SongRecyclerViewAdapter.ViewHolder> {
+    public static final String TAG = "SongRecyclerViewAdapter";
     AppCompatActivity activity;
     List<Song> songList = new ArrayList<>();
     RecycleViewInterface recycleViewInterface;
@@ -52,9 +53,6 @@ public class SongRecyclerViewAdapter extends RecyclerView.Adapter<SongRecyclerVi
     @Override
     public SongRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-//        View itemView = layoutInflater.inflate(R.layout.item_standard, parent, false);
-//        SongRecyclerViewAdapter.ViewHolder viewHolder = new SongRecyclerViewAdapter.ViewHolder(itemView);
-//        viewHolder.binding = ItemStandardBinding.bind(itemView);
         ItemStandardBinding binding = ItemStandardBinding.inflate(layoutInflater, parent, false);
         return new SongRecyclerViewAdapter.ViewHolder(binding);
     }
@@ -90,6 +88,7 @@ public class SongRecyclerViewAdapter extends RecyclerView.Adapter<SongRecyclerVi
         holder.itemView.setOnClickListener(view -> {
             if (recycleViewInterface != null) {
                 if (position != RecyclerView.NO_POSITION) {
+                    Log.d(TAG, "onBindViewHolder: click");
                     MusicPlayerRemote.openQueue(songList, position, true);
                 }
             }

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -15,8 +16,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import org.annatv.musicplayer.helper.MusicPlayerRemote;
 import org.annatv.musicplayer.ui.panel.MusicPanelActivity;
-import org.annatv.musicplayer.ui.player.player.MiniPlayerFragment;
+import org.annatv.musicplayer.ui.player.MiniPlayerFragment;
 import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends MusicPanelActivity {
@@ -37,10 +39,10 @@ public class MainActivity extends MusicPanelActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
-                .add(R.id.fragmentViewMiniPlayer, MiniPlayerFragment.class, null)
-                .commit();
+//        getSupportFragmentManager().beginTransaction()
+//                .setReorderingAllowed(true)
+//                .add(R.id.fragmentViewMiniPlayer, MiniPlayerFragment.class, null)
+//                .commit();
         fragmentContainerView = findViewById(R.id.fragmentViewMiniPlayer);
         miniPlayerFragment = (MiniPlayerFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentViewMiniPlayer);
     }

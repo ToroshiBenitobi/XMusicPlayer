@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import org.annatv.musicplayer.R;
 import org.annatv.musicplayer.adapter.song.SongRecyclerViewAdapter;
 import org.annatv.musicplayer.database.AppDatabase;
+import org.annatv.musicplayer.helper.MusicPlayerRemote;
 import org.annatv.musicplayer.loader.SongLoader;
 import org.annatv.musicplayer.ui.RecycleViewInterface;
 import org.annatv.musicplayer.util.NavigationUtil;
@@ -62,7 +63,9 @@ public class SongFragment extends Fragment implements RecycleViewInterface {
 
     @Override
     public void onItemClick(int position) {
-
+        if (position != RecyclerView.NO_POSITION) {
+            MusicPlayerRemote.openQueue(adapter.getSongList(), position, true);
+        }
     }
 
     @Override
