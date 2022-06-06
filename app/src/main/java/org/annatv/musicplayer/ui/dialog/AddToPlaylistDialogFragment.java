@@ -51,7 +51,10 @@ public class AddToPlaylistDialogFragment extends AppCompatDialogFragment {
         viewModel.getPlaylists().observe(this, playlists -> {
             adapter.swapDataSet(playlists);
         });
-        playList.setOnItemClickListener((adapterView, view, i, l) -> listener.onDialogListItemClick(adapter.getItem(i).getPid()));
+        playList.setOnItemClickListener((adapterView, view, i, l) -> {
+            listener.onDialogListItemClick(adapter.getItem(i).getPid());
+            dismiss();
+        });
         playList.setAdapter(adapter);
         builder.setTitle(R.string.add_playlist);
         builder.setView(playList);

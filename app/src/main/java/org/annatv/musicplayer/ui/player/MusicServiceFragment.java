@@ -59,7 +59,6 @@ public class MusicServiceFragment extends Fragment implements MusicServiceEventL
 
     @Override
     public void onQueueChanged() {
-
     }
 
     // 播放暂停

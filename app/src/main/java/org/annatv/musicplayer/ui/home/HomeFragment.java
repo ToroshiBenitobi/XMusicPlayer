@@ -20,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class HomeFragment extends Fragment {
 
+    private static final String TAG = "HomeFragment";
     private HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -40,6 +41,7 @@ public class HomeFragment extends Fragment {
             @NotNull
             @Override
             public Fragment createFragment(int position) {
+                Log.d(TAG, "createFragment: createFragment " + position);
                 switch (position) {
                     case 0:
                         return new SongFragment();

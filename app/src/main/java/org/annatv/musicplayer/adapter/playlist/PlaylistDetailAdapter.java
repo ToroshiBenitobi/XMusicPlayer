@@ -104,7 +104,7 @@ public class PlaylistDetailAdapter extends RecyclerView.Adapter<PlaylistDetailAd
 
         @Override
         public int getMenuRes() {
-            return R.menu.item_song_menu;
+            return R.menu.item_playlist_song_menu;
         }
     }
 }

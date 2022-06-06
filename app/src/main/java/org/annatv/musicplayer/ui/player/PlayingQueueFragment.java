@@ -1,7 +1,10 @@
 package org.annatv.musicplayer.ui.player;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,14 +19,23 @@ import org.annatv.musicplayer.ui.RecycleViewInterface;
 import org.jetbrains.annotations.NotNull;
 
 public class PlayingQueueFragment extends MusicServiceFragment implements RecycleViewInterface {
+    private static final String TAG = "PlayingQueueFragment";
     PlayingQueueAdapter adapter;
     private FragmentPlayingQueueBinding binding;
 
+    @Nullable
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        binding = FragmentPlayingQueueBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
 
     @Override
     public void onViewCreated(@NonNull @NotNull View view, Bundle savedInstanceState) {
+        Log.d(TAG, "onViewCreated: PlayingQueueFragment");
         super.onViewCreated(view, savedInstanceState);
-        binding = FragmentPlayingQueueBinding.inflate(getLayoutInflater());
+
         adapter = new PlayingQueueAdapter((AppCompatActivity) getActivity(), this, MusicPlayerRemote.getPlayingQueue(), MusicPlayerRemote.getPosition());
         LinearLayoutManager layoutManager = new LinearLayoutManager(binding.getRoot().getContext());
         binding.playerRecyclerView.setLayoutManager(layoutManager);

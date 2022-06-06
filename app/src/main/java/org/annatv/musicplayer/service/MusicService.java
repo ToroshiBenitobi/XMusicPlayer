@@ -27,6 +27,7 @@ import org.annatv.musicplayer.entity.Playlist;
 import org.annatv.musicplayer.entity.Song;
 import org.annatv.musicplayer.entity.activitylist.ActivityList;
 import org.annatv.musicplayer.helper.ShuffleHelper;
+import org.annatv.musicplayer.loader.PlaylistSongRepository;
 import org.annatv.musicplayer.service.playback.Playback;
 import org.annatv.musicplayer.util.MusicUtil;
 import org.annatv.musicplayer.util.PreferenceUtil;
@@ -138,6 +139,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     private Handler uiThreadHandler;
 
+    PlaylistSongRepository songRepository;
+
     private static String getTrackUri(@NonNull Song song) {
         return MusicUtil.getSongFileUri(song.id).toString();
     }
@@ -172,6 +175,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
         mediaStoreObserver = new MediaStoreObserver(playerHandler);
         throttledSeekHandler = new ThrottledSeekHandler(playerHandler);
+
+        songRepository = new PlaylistSongRepository(this);
 
         getContentResolver().registerContentObserver(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, true, mediaStoreObserver);
         getContentResolver().registerContentObserver(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, true, mediaStoreObserver);
@@ -1023,11 +1028,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 savePositionInTrack();
                 final Song currentSong = getCurrentSong();
                 //todo: history
-//                HistoryStore.getInstance(this).addSongId(currentSong.id);
-//                if (songPlayCountHelper.shouldBumpPlayCount()) {
-//                    SongPlayCountStore.getInstance(this).bumpPlayCount(songPlayCountHelper.getSong().id);
-//                }
-//                songPlayCountHelper.notifySongChanged(currentSong);
+                songRepository.insertHistoryPlaylistSongsAsync(currentSong.id);
+                if (songPlayCountHelper.shouldBumpPlayCount()) {
+                    songRepository.addTopSongCountAsync(songPlayCountHelper.getSong().id);
+                }
+                songPlayCountHelper.notifySongChanged(currentSong);
                 break;
             case QUEUE_CHANGED:
                 updateMediaSessionMetaData(); // because playing queue size might have changed
@@ -1246,7 +1251,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 //        }
 
 
-
     }
 
     private final BroadcastReceiver widgetIntentReceiver = new BroadcastReceiver() {
@@ -1328,7 +1332,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     private static class SongPlayCountHelper {
         public static final String TAG = SongPlayCountHelper.class.getSimpleName();
-
+        private static final double RATIO = 0.001;
         private StopWatch stopWatch = new StopWatch();
         private Song song = Song.EMPTY_SONG;
 
@@ -1337,7 +1341,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
 
         boolean shouldBumpPlayCount() {
-            return song.duration * 0.5d < stopWatch.getElapsedTime();
+            return song.duration * RATIO < stopWatch.getElapsedTime();
         }
 
         void notifySongChanged(Song song) {

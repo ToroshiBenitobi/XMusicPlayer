@@ -12,7 +12,9 @@ import org.annatv.musicplayer.entity.activitylist.FavouritePlaylistSong;
 import org.annatv.musicplayer.entity.activitylist.HistoryPlaylistSong;
 import org.annatv.musicplayer.entity.activitylist.TopPlaylistSong;
 
-@Database(entities = {Playlist.class, PlaylistSong.class, HistoryPlaylistSong.class, TopPlaylistSong.class, FavouritePlaylistSong.class}, version = 9, exportSchema = false)
+@Database(entities = {Playlist.class, PlaylistSong.class,
+        HistoryPlaylistSong.class, TopPlaylistSong.class,
+        FavouritePlaylistSong.class}, version = 10, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String TAG = "AppDatabase";
     private static AppDatabase INSTANCE;

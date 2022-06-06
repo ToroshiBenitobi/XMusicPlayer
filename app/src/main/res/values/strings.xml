@@ -18,10 +18,10 @@
     <string name="added_x_titles_to_playing_queue">Added %1$d titles to the playing queue.</string>
     <string name="album">Album</string>
     <string name="albums">Albums</string>
-    <string name="action_sing_add_to_queue">Add to queue</string>
-    <string name="action_sing_add_to_playlist">Add to playlist…</string>
-    <string name="action_sing_go_to_album">Go to album</string>
-    <string name="action_sing_go_to_artist">Go to artist</string>
+    <string name="action_song_add_to_queue">Add to queue</string>
+    <string name="action_song_add_to_playlist">Add to playlist…</string>
+    <string name="action_song_go_to_album">Go to album</string>
+    <string name="action_song_go_to_artist">Go to artist</string>
     <string name="recent_played">Recent played</string>
     <string name="top_played">Top played</string>
     <string name="my_favourite">My favourite</string>
@@ -32,4 +32,9 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="enter_playlist_name">Enter playlist name.</string>
+    <string name="action_playlist_song_delete_from_playlist">Delete from playlist</string>
+    <string name="action_add_to_favorites">Add to my favourites</string>
+    <string name="action_clear_playlist">Clear playlist</string>
+    <string name="action_remove_from_favourites">Remove from my favourites</string>
+    <string name="delete">Delete</string>
 </resources>

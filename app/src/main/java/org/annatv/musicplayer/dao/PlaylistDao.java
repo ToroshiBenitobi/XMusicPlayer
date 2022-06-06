@@ -1,28 +1,34 @@
 package org.annatv.musicplayer.dao;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.Query;
+import androidx.room.*;
 import org.annatv.musicplayer.entity.Playlist;
 
 import java.util.List;
 
 @Dao
-public interface PlaylistDao {
+public abstract class PlaylistDao {
     @Query("SELECT * FROM playlist")
-    LiveData<List<Playlist>> getAll();
+    public abstract LiveData<List<Playlist>> getAll();
 
     @Query("SELECT * FROM playlist WHERE pid = :pid")
-    Playlist loadAllByIds(int pid);
+    public abstract Playlist loadByIds(int pid);
 
     @Query("SELECT * FROM playlist WHERE pid = :name")
-    Playlist loadByName(String name);
+    public abstract Playlist loadByName(String name);
 
     @Insert
-    void insertAll(Playlist... playlists);
+    public abstract void insertAll(Playlist... playlists);
 
-    @Delete
-    void delete(Playlist playlist);
+    @Query("DELETE FROM playlist WHERE pid = :pid")
+    public abstract void delete(int pid);
+
+    @Query("DELETE FROM playlistsong WHERE playlist_id = :pid")
+    public abstract void clear(int pid);
+
+    @Transaction
+    public void safeDelete(int pid) {
+        delete(pid);
+        clear(pid);
+    }
 }

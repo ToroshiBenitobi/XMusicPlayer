@@ -2,6 +2,7 @@ package org.annatv.musicplayer.entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "playlist")
@@ -12,6 +13,12 @@ public class Playlist {
     public String name;
 
     public Playlist(String name) {
+        this.name = name;
+    }
+
+    @Ignore
+    public Playlist(int pid, String name) {
+        this.pid = pid;
         this.name = name;
     }
 

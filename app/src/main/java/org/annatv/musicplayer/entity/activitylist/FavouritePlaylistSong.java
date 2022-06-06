@@ -12,8 +12,7 @@ public class FavouritePlaylistSong implements AbsPlaylistSong {
     @ColumnInfo(name = "song_id")
     public long songId;
 
-    public FavouritePlaylistSong(int id, long songId) {
-        this.id = id;
+    public FavouritePlaylistSong(long songId) {
         this.songId = songId;
     }
 

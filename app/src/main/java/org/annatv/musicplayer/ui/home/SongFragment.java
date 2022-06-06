@@ -5,7 +5,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,8 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import org.annatv.musicplayer.R;
 import org.annatv.musicplayer.adapter.song.SongRecyclerViewAdapter;
-import org.annatv.musicplayer.database.AppDatabase;
 import org.annatv.musicplayer.helper.MusicPlayerRemote;
+import org.annatv.musicplayer.loader.PlaylistSongRepository;
 import org.annatv.musicplayer.loader.SongLoader;
 import org.annatv.musicplayer.ui.RecycleViewInterface;
 import org.annatv.musicplayer.ui.dialog.AddToPlaylistDialogFragment;
@@ -30,6 +29,7 @@ public class SongFragment extends Fragment implements RecycleViewInterface, AddT
     RecyclerView recyclerView;
     SongRecyclerViewAdapter adapter;
     private int position;
+    PlaylistSongRepository playlistSongRepository;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -42,6 +42,7 @@ public class SongFragment extends Fragment implements RecycleViewInterface, AddT
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        playlistSongRepository = new PlaylistSongRepository(getActivity());
     }
 
     @Override
@@ -74,13 +75,16 @@ public class SongFragment extends Fragment implements RecycleViewInterface, AddT
     public boolean onItemMenuClick(int id, int position) {
         this.position = position;
         switch (id) {
-            case R.id.actionSingAddToPlaylist:
+            case R.id.actionSongAddToQueue:
+                MusicPlayerRemote.enqueue(adapter.getSongList().get(position));
+                return true;
+            case R.id.actionSongAddToPlaylist:
                 openAddToPlaylistDialog(position);
                 return true;
-            case R.id.actionSingGoToAlbum:
+            case R.id.actionSongGoToAlbum:
                 NavigationUtil.goToAlbum(getActivity(), adapter.getSongList().get(position).getAlbumId());
                 return true;
-            case R.id.actionSingGoToArtist:
+            case R.id.actionSongGoToArtist:
                 NavigationUtil.goToArtist(getActivity(), adapter.getSongList().get(position).getArtistId());
                 return true;
         }
@@ -95,6 +99,7 @@ public class SongFragment extends Fragment implements RecycleViewInterface, AddT
 
     @Override
     public void onDialogListItemClick(int playlistId) {
+        playlistSongRepository.insertPlaylistSongAsync(playlistId, adapter.getSongList().get(position).getId());
         Log.d(TAG, "onDialogListItemClick: " + "id: " + position + "playlistId: " + playlistId);
     }
 

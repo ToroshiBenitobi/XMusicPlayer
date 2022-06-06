@@ -61,20 +61,21 @@ public class AlbumRecyclerAdapter extends RecyclerView.Adapter<AlbumRecyclerAdap
         holder.binding.itemStandardImage.setPadding(padding, padding, padding, padding);
         holder.binding.itemStandardImage.setImageBitmap(BitmapFactory.decodeFile(AlbumLoader.getAlbumArt(activity, album.getId())));
 
-        holder.binding.itemStandardMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                holder.popupMenu = new PopupMenu(activity, view);
-                holder.popupMenu.inflate(holder.getMenuRes());
-                holder.popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        return recycleViewInterface.onItemMenuClick(menuItem.getItemId(), position);
-                    }
-                });
-                holder.popupMenu.show();
-            }
-        });
+        // todo: menu
+//        holder.binding.itemStandardMenu.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                holder.popupMenu = new PopupMenu(activity, view);
+//                holder.popupMenu.inflate(holder.getMenuRes());
+//                holder.popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                    @Override
+//                    public boolean onMenuItemClick(MenuItem menuItem) {
+//                        return recycleViewInterface.onItemMenuClick(menuItem.getItemId(), position);
+//                    }
+//                });
+//                holder.popupMenu.show();
+//            }
+//        });
 
     }
 

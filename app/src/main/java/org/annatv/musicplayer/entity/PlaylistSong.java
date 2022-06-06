@@ -13,7 +13,7 @@ public class PlaylistSong implements AbsPlaylistSong {
     @ColumnInfo(name = "playlist_id")
     public int playlistId;
 
-    public PlaylistSong(long songId, int playlistId) {
+    public PlaylistSong(int playlistId, long songId) {
         this.songId = songId;
         this.playlistId = playlistId;
     }

@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import org.annatv.musicplayer.R;
 import org.annatv.musicplayer.dao.PlaylistDao;
 import org.annatv.musicplayer.database.AppDatabase;
 import org.annatv.musicplayer.entity.Playlist;
@@ -28,18 +30,30 @@ public class PlaylistRepository {
         return playlists;
     }
 
-    public void insertPlaylists(Playlist... playlists) {
+    public Playlist getPlaylist(int pid) {
+        switch (pid) {
+            case PlaylistSongRepository.HISTORY_PLAYLIST:
+                return new Playlist(PlaylistSongRepository.HISTORY_PLAYLIST, "Recent played");
+            case PlaylistSongRepository.TOP_PLAYLIST:
+                return new Playlist(PlaylistSongRepository.TOP_PLAYLIST, "Top played");
+            case PlaylistSongRepository.FAVOURITE_PLAYLIST:
+                return new Playlist(PlaylistSongRepository.FAVOURITE_PLAYLIST, "My favourite");
+            default:
+                return playlistDao.loadByIds(pid);
+        }
+    }
+
+    public void deletePlaylistByIdAsync(int playlistId) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            playlistDao.safeDelete(playlistId);
+        });
+    }
+
+
+    public void insertPlaylistsAsync(Playlist... playlists) {
         Executors.newSingleThreadExecutor().execute(() -> {
             playlistDao.insertAll(playlists);
         });
-//        ExecutorService executor = Executors.newSingleThreadExecutor();
-//        Handler handler = new Handler(Looper.getMainLooper());
-//        executor.execute(() -> {
-//            //Background work here
-//            handler.post(() -> {
-//                //UI Thread work here
-//            });
-//        });
     }
 
 }

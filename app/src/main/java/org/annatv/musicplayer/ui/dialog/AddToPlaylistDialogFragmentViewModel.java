@@ -21,6 +21,6 @@ public class AddToPlaylistDialogFragmentViewModel extends AndroidViewModel {
     }
 
     void insertPlaylists(Playlist... playlists) {
-        playlistRepository.insertPlaylists(playlists);
+        playlistRepository.insertPlaylistsAsync(playlists);
     }
 }

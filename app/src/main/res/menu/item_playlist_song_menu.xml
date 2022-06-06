@@ -5,4 +5,6 @@
     <item android:title="@string/action_song_add_to_playlist" android:id="@+id/actionSongAddToPlaylist"/>
     <item android:title="@string/action_song_go_to_album" android:id="@+id/actionSongGoToAlbum"/>
     <item android:title="@string/action_song_go_to_artist" android:id="@+id/actionSongGoToArtist"/>
+    <item android:title="@string/action_playlist_song_delete_from_playlist"
+          android:id="@+id/actionPlaylistSongDeleteFromPlaylist"/>
 </menu>

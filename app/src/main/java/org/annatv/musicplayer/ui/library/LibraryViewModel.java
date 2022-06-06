@@ -23,7 +23,11 @@ public class LibraryViewModel extends AndroidViewModel {
         return playlistRepository.getPlaylists();
     }
 
+    void deletePlaylistById(int playlistId) {
+        playlistRepository.deletePlaylistByIdAsync(playlistId);
+    }
+
     void insertPlaylists(Playlist... playlists) {
-        playlistRepository.insertPlaylists(playlists);
+        playlistRepository.insertPlaylistsAsync(playlists);
     }
 }
