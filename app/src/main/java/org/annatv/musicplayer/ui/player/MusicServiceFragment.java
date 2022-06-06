@@ -42,6 +42,7 @@ public class MusicServiceFragment extends Fragment implements MusicServiceEventL
         activity.removeMusicServiceEventListener(this);
     }
 
+    // 切歌
     @Override
     public void onPlayingMetaChanged() {
 
@@ -54,7 +55,6 @@ public class MusicServiceFragment extends Fragment implements MusicServiceEventL
 
     @Override
     public void onServiceDisconnected() {
-
     }
 
     @Override
@@ -62,6 +62,7 @@ public class MusicServiceFragment extends Fragment implements MusicServiceEventL
 
     }
 
+    // 播放暂停
     @Override
     public void onPlayStateChanged() {
 
