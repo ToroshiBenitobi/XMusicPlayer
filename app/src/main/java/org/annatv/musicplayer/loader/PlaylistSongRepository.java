@@ -123,9 +123,13 @@ public class PlaylistSongRepository {
     public void insertHistoryPlaylistSongs(HistoryPlaylistSong historyPlaylistSong) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
-            historyPlaylistSongDao.delete(historyPlaylistSong);
+            historyPlaylistSongDao.deleteBySongId(historyPlaylistSong.getSongId());
             historyPlaylistSongDao.insertAll(historyPlaylistSong);
         });
+
+    }
+
+    public void insert() {
 
     }
 }

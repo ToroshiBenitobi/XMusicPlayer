@@ -7,9 +7,11 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import org.annatv.musicplayer.adapter.album.AlbumDetailAdapter;
 import org.annatv.musicplayer.databinding.ActivityAlbumDetailBinding;
 import org.annatv.musicplayer.entity.Album;
+import org.annatv.musicplayer.helper.MusicPlayerRemote;
 import org.annatv.musicplayer.loader.AlbumLoader;
 import org.annatv.musicplayer.service.MusicService;
 import org.annatv.musicplayer.ui.panel.MusicPanelActivity;
@@ -51,7 +53,9 @@ public class AlbumDetailActivity extends MusicPanelActivity implements RecycleVi
 
     @Override
     public void onItemClick(int position) {
-
+        if (position != RecyclerView.NO_POSITION) {
+            MusicPlayerRemote.openQueue(adapter.getAlbum().songs, position, true);
+        }
     }
 
     @Override

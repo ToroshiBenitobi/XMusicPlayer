@@ -16,8 +16,8 @@ public interface PlaylistSongDao {
     List<PlaylistSong> loadAllByPlaylistId(int playlistId);
 
     @Insert
-    void insertAll(Playlist... playlists);
+    void insertAll(PlaylistSong... PlaylistSong);
 
     @Delete
-    void delete(Playlist playlist);
+    void delete(PlaylistSong PlaylistSong);
 }

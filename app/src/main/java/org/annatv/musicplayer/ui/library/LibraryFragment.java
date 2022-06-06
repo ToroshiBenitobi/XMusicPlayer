@@ -1,12 +1,14 @@
 package org.annatv.musicplayer.ui.library;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
@@ -19,13 +21,15 @@ import org.annatv.musicplayer.entity.Playlist;
 import org.annatv.musicplayer.loader.ArtistLoader;
 import org.annatv.musicplayer.loader.PlaylistSongRepository;
 import org.annatv.musicplayer.ui.RecycleViewInterface;
+import org.annatv.musicplayer.ui.dialog.AddPlaylistDialogFragment;
 import org.annatv.musicplayer.util.NavigationUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
-public class LibraryFragment extends Fragment implements RecycleViewInterface {
+public class LibraryFragment extends Fragment implements RecycleViewInterface, AddPlaylistDialogFragment.AddPlaylistDialogListener {
     RecyclerView recyclerView;
     PlaylistRecyclerAdapter adapter;
 
@@ -56,8 +60,7 @@ public class LibraryFragment extends Fragment implements RecycleViewInterface {
     @Override
     public void onItemClick(int position) {
         if (position == adapter.getItemCount() - 1) {
-            Playlist playlist = new Playlist("a");
-            libraryViewModel.insertPlaylists(playlist);
+            openAddPlaylistDialog();
         } else if (position == 0) {
             NavigationUtil.goToPlaylist(getActivity(), PlaylistSongRepository.HISTORY_PLAYLIST);
         } else if (position == 1) {
@@ -72,5 +75,23 @@ public class LibraryFragment extends Fragment implements RecycleViewInterface {
     @Override
     public boolean onItemMenuClick(int id, int position) {
         return false;
+    }
+
+    @Override
+    public void onDialogPositiveClick(AppCompatDialogFragment dialog) {
+        String name = ((AddPlaylistDialogFragment) dialog).getEditText().getText().toString();
+        if (name.isEmpty()) return;
+        Playlist playlist = new Playlist(name);
+        libraryViewModel.insertPlaylists(playlist);
+    }
+
+    @Override
+    public void onDialogNegativeClick(AppCompatDialogFragment dialog) {
+
+    }
+
+    private void openAddPlaylistDialog() {
+        AddPlaylistDialogFragment fragment = new AddPlaylistDialogFragment(this);
+        fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
     }
 }

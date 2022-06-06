@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class AlbumDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     AppCompatActivity activity;
-    Album album;
+    private Album album;
     RecycleViewInterface recycleViewInterface;
     public static final int HEADER = 0;
     public static final int SONG = 1;
@@ -38,6 +38,10 @@ public class AlbumDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         } else {
             return SONG;
         }
+    }
+
+    public Album getAlbum() {
+        return album;
     }
 
     @Override

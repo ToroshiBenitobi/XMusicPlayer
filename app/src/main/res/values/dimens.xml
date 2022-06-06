@@ -67,4 +67,5 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="card_on_app_bar_side_padding">8dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="fragment_mini_player_height">55dp</dimen>
+    <dimen name="fragment_player_pageview">150dp</dimen>
 </resources>

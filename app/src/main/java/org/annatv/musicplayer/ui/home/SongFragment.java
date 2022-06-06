@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,16 +18,18 @@ import org.annatv.musicplayer.database.AppDatabase;
 import org.annatv.musicplayer.helper.MusicPlayerRemote;
 import org.annatv.musicplayer.loader.SongLoader;
 import org.annatv.musicplayer.ui.RecycleViewInterface;
+import org.annatv.musicplayer.ui.dialog.AddToPlaylistDialogFragment;
 import org.annatv.musicplayer.util.NavigationUtil;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * A fragment representing a list of Items.
  */
-public class SongFragment extends Fragment implements RecycleViewInterface {
+public class SongFragment extends Fragment implements RecycleViewInterface, AddToPlaylistDialogFragment.AddToPlaylistDialogListener {
+    private static final String TAG = "SongFragment";
     RecyclerView recyclerView;
     SongRecyclerViewAdapter adapter;
-
+    private int position;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -54,7 +57,6 @@ public class SongFragment extends Fragment implements RecycleViewInterface {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.listRecycleView);
         adapter = new SongRecyclerViewAdapter((AppCompatActivity) getActivity(), this, SongLoader.getAllSongs(getActivity()));
-        Log.d("TAG", SongLoader.getAllSongs(getActivity()).toString());
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -70,15 +72,30 @@ public class SongFragment extends Fragment implements RecycleViewInterface {
 
     @Override
     public boolean onItemMenuClick(int id, int position) {
+        this.position = position;
         switch (id) {
+            case R.id.actionSingAddToPlaylist:
+                openAddToPlaylistDialog(position);
+                return true;
             case R.id.actionSingGoToAlbum:
                 NavigationUtil.goToAlbum(getActivity(), adapter.getSongList().get(position).getAlbumId());
                 return true;
             case R.id.actionSingGoToArtist:
                 NavigationUtil.goToArtist(getActivity(), adapter.getSongList().get(position).getArtistId());
+                return true;
         }
         return false;
 
+    }
+
+    private void openAddToPlaylistDialog(int position) {
+        AddToPlaylistDialogFragment fragment = new AddToPlaylistDialogFragment(this);
+        fragment.show(getActivity().getSupportFragmentManager(), fragment.getClass().getName());
+    }
+
+    @Override
+    public void onDialogListItemClick(int playlistId) {
+        Log.d(TAG, "onDialogListItemClick: " + "id: " + position + "playlistId: " + playlistId);
     }
 
 

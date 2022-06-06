@@ -17,10 +17,12 @@ public interface PlaylistDao {
     @Query("SELECT * FROM playlist WHERE pid = :pid")
     Playlist loadAllByIds(int pid);
 
+    @Query("SELECT * FROM playlist WHERE pid = :name")
+    Playlist loadByName(String name);
+
     @Insert
     void insertAll(Playlist... playlists);
 
     @Delete
     void delete(Playlist playlist);
-
 }

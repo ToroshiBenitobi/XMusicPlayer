@@ -8,7 +8,18 @@
         tools:context=".ui.PlaylistDetailActivity">
 
     <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/recycleViewPlaylistDetail"
+            app:layout_constraintBottom_toTopOf="@+id/fragmentViewMiniPlayer"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentViewMiniPlayer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" tools:layout_editor_absoluteY="118dp"
-            tools:layout_editor_absoluteX="124dp" android:id="@+id/recycleViewPlaylistDetail"/>
+            android:layout_height="@dimen/fragment_mini_player_height"
+            android:name="org.annatv.musicplayer.ui.player.MiniPlayerFragment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

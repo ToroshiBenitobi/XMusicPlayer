@@ -29,4 +29,7 @@
     <string name="up_next">Up next</string>
     <string name="card" translatable="false">Card</string>
     <string name="flat" translatable="false">Flat</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="enter_playlist_name">Enter playlist name.</string>
 </resources>

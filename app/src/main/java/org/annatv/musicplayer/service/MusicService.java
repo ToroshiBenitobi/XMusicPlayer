@@ -42,7 +42,7 @@ import java.util.Random;
  */
 public class MusicService extends Service implements SharedPreferences.OnSharedPreferenceChangeListener, Playback.PlaybackCallbacks {
 
-    public static final String PACKAGE_NAME = "org.anna.tv";
+    public static final String PACKAGE_NAME = "org.annatv.musicplayer";
     public static final String MUSIC_PACKAGE_NAME = "com.android.music";
 
     public static final String ACTION_TOGGLE_PAUSE = PACKAGE_NAME + ".togglepause";
@@ -93,8 +93,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final int REPEAT_MODE_THIS = 2;
 
     public static final int SAVE_QUEUES = 0;
-
-    private final IBinder musicBind = new MusicBinder();
 
     public boolean pendingQuit = false;
 
@@ -194,7 +192,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
         mediaSession.setActive(true);
 
-        sendBroadcast(new Intent("com.kabouzeid.gramophone.PHONOGRAPH_MUSIC_SERVICE_CREATED"));
+        sendBroadcast(new Intent("org.annatv.musicplayer.PHONOGRAPH_MUSIC_SERVICE_CREATED"));
     }
 
     private AudioManager getAudioManager() {
@@ -341,12 +339,12 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         PreferenceUtil.getInstance(this).unregisterOnSharedPreferenceChangedListener(this);
         wakeLock.release();
 
-        sendBroadcast(new Intent("com.kabouzeid.gramophone.PHONOGRAPH_MUSIC_SERVICE_DESTROYED"));
+        sendBroadcast(new Intent("org.annatv.musicplayer.PHONOGRAPH_MUSIC_SERVICE_DESTROYED"));
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        return musicBind;
+        return new MusicBinder();
     }
 
     private static final class QueueSaveHandler extends Handler {
@@ -988,7 +986,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
         intent.putExtra("scrobbling_source", PACKAGE_NAME);
 
-//        sendStickyBroadcast(intent);
+        sendBroadcast(intent);
     }
 
     private void sendChangeInternal(final String what) {
@@ -1238,6 +1236,17 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         public MusicService getService() {
             return MusicService.this;
         }
+
+//        protected void sendContentBroadcast(String name) {
+//            // TODO Auto-generated method stub
+//            Intent intent = new Intent();
+//            intent.setAction("com.example.servicecallback.content");
+//            intent.putExtra("name", name);
+//            sendBroadcast(intent);
+//        }
+
+
+
     }
 
     private final BroadcastReceiver widgetIntentReceiver = new BroadcastReceiver() {

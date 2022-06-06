@@ -52,7 +52,7 @@ public class MusicPlayerRemote {
 
         if (contextWrapper.bindService(new Intent().setClass(contextWrapper, MusicService.class), binder, Context.BIND_AUTO_CREATE)) {
             mConnectionMap.put(contextWrapper, binder);
-            Log.d(TAG, "bindToService: "+mConnectionMap.size());
+            Log.d(TAG, "bindToService: "+contextWrapper.getClass().toString());
             return new ServiceToken(contextWrapper);
         }
         return null;
