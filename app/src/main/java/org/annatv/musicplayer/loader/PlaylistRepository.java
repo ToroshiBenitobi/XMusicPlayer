@@ -29,8 +29,6 @@ public class PlaylistRepository {
     }
 
     public void insertPlaylists(Playlist... playlists) {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
         Executors.newSingleThreadExecutor().execute(() -> {
             playlistDao.insertAll(playlists);
         });

@@ -9,6 +9,7 @@ import androidx.core.util.Pair;
 import org.annatv.musicplayer.ui.AlbumDetailActivity;
 import org.annatv.musicplayer.ui.ArtistDetailActivity;
 import org.annatv.musicplayer.ui.PlayerActivity;
+import org.annatv.musicplayer.ui.PlaylistDetailActivity;
 
 public class NavigationUtil {
 
@@ -52,12 +53,11 @@ public class NavigationUtil {
 //        activity.startActivity(intent);
 //    }
 //
-//    public static void goToPlaylist(@NonNull final Activity activity, final Playlist playlist, @Nullable Pair... sharedElements) {
-//        final Intent intent = new Intent(activity, PlaylistDetailActivity.class);
-//        intent.putExtra(PlaylistDetailActivity.EXTRA_PLAYLIST, playlist);
-//
-//        activity.startActivity(intent);
-//    }
+    public static void goToPlaylist(@NonNull final Activity activity, final int playlistId, @Nullable Pair... sharedElements) {
+        final Intent intent = new Intent(activity, PlaylistDetailActivity.class);
+        intent.putExtra(PlaylistDetailActivity.PLAYLIST_ID, playlistId);
+        activity.startActivity(intent);
+    }
 //
 //    public static void openEqualizer(@NonNull final Activity activity) {
 //        final int sessionId = MusicPlayerRemote.getAudioSessionId();

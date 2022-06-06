@@ -15,9 +15,10 @@ import org.annatv.musicplayer.entity.Album;
 import org.annatv.musicplayer.entity.Artist;
 import org.annatv.musicplayer.loader.AlbumLoader;
 import org.annatv.musicplayer.loader.ArtistLoader;
+import org.annatv.musicplayer.ui.panel.MusicPanelActivity;
 import org.annatv.musicplayer.util.NavigationUtil;
 
-public class ArtistDetailActivity extends AppCompatActivity implements RecycleViewInterface {
+public class ArtistDetailActivity extends MusicPanelActivity implements RecycleViewInterface {
     private ActivityArtistDetailBinding binding;
     ArtistDetailAdapter adapter;
     public static final String ARTIST_ID = "artist_id";

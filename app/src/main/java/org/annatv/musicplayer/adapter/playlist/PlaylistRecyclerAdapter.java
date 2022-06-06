@@ -28,6 +28,10 @@ public class PlaylistRecyclerAdapter extends RecyclerView.Adapter<PlaylistRecycl
         this.recycleViewInterface = recycleViewInterface;
     }
 
+    public List<Playlist> getPlaylists() {
+        return playlists;
+    }
+
     @NonNull
     @NotNull
     @Override

@@ -49,8 +49,6 @@ public abstract class MusicPanelActivity extends MusicServiceActivity {
 //        slidingUpPanelLayout.setAntiDragView(antiDragView);
     }
 
-    protected abstract View createContentView();
-
     @Override
     public void onQueueChanged() {
         super.onQueueChanged();

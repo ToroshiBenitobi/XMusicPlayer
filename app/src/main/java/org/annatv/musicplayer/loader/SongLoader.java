@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.AudioColumns;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import org.annatv.musicplayer.entity.AbsPlaylistSong;
 import org.annatv.musicplayer.entity.Song;
 import org.annatv.musicplayer.util.PreferenceUtil;
 

@@ -5,12 +5,14 @@ import android.util.Log;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import org.annatv.musicplayer.dao.PlaylistDao;
-import org.annatv.musicplayer.dao.PlaylistSongDao;
+import org.annatv.musicplayer.dao.*;
 import org.annatv.musicplayer.entity.Playlist;
 import org.annatv.musicplayer.entity.PlaylistSong;
+import org.annatv.musicplayer.entity.activitylist.FavouritePlaylistSong;
+import org.annatv.musicplayer.entity.activitylist.HistoryPlaylistSong;
+import org.annatv.musicplayer.entity.activitylist.TopPlaylistSong;
 
-@Database(entities = {Playlist.class, PlaylistSong.class}, version = 5, exportSchema = false)
+@Database(entities = {Playlist.class, PlaylistSong.class, HistoryPlaylistSong.class, TopPlaylistSong.class, FavouritePlaylistSong.class}, version = 9, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String TAG = "AppDatabase";
     private static AppDatabase INSTANCE;
@@ -29,4 +31,10 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract PlaylistDao playlistDao();
 
     public abstract PlaylistSongDao playlistSongDao();
+
+    public abstract HistoryPlaylistSongDao historyPlaylistSongDao();
+
+    public abstract TopPlaylistSongDao topPlaylistSongDao();
+
+    public abstract FavouritePlaylistSongDao favouritePlaylistDao();
 }

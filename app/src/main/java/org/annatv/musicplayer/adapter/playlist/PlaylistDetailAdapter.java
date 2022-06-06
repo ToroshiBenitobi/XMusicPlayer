@@ -1,40 +1,35 @@
-package org.annatv.musicplayer.adapter.song;
+package org.annatv.musicplayer.adapter.playlist;
 
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import org.annatv.musicplayer.R;
 import org.annatv.musicplayer.adapter.holder.StandardViewHolder;
+import org.annatv.musicplayer.adapter.song.SongRecyclerViewAdapter;
 import org.annatv.musicplayer.databinding.ItemStandardBinding;
-import org.annatv.musicplayer.entity.Album;
+import org.annatv.musicplayer.entity.Playlist;
 import org.annatv.musicplayer.entity.Song;
 import org.annatv.musicplayer.helper.MusicPlayerRemote;
 import org.annatv.musicplayer.loader.AlbumLoader;
 import org.annatv.musicplayer.ui.RecycleViewInterface;
-import org.jetbrains.annotations.NotNull;
 import org.annatv.musicplayer.util.MusicUtil;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SongRecyclerViewAdapter extends RecyclerView.Adapter<SongRecyclerViewAdapter.ViewHolder> {
-    public static final String TAG = "SongRecyclerViewAdapter";
+public class PlaylistDetailAdapter extends RecyclerView.Adapter<PlaylistDetailAdapter.ViewHolder> {
     AppCompatActivity activity;
     List<Song> songList = new ArrayList<>();
     RecycleViewInterface recycleViewInterface;
 
-    public SongRecyclerViewAdapter(AppCompatActivity activity, RecycleViewInterface recycleViewInterface, List<Song> songList) {
+    public PlaylistDetailAdapter(AppCompatActivity activity, RecycleViewInterface recycleViewInterface, List<Song> songList) {
         this.activity = activity;
         this.songList = songList;
         this.recycleViewInterface = recycleViewInterface;
@@ -44,22 +39,17 @@ public class SongRecyclerViewAdapter extends RecyclerView.Adapter<SongRecyclerVi
         return songList;
     }
 
-    public void setSongList(List<Song> songList) {
-        this.songList = songList;
-    }
-
     @NonNull
     @NotNull
     @Override
-    public SongRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public PlaylistDetailAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         ItemStandardBinding binding = ItemStandardBinding.inflate(layoutInflater, parent, false);
-        return new SongRecyclerViewAdapter.ViewHolder(binding);
+        return new PlaylistDetailAdapter.ViewHolder(binding);
     }
 
-
     @Override
-    public void onBindViewHolder(@NonNull @NotNull SongRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull @NotNull PlaylistDetailAdapter.ViewHolder holder, int position) {
         final Song song = songList.get(position);
         holder.binding.itemStandardTitle.setText(song.getTitle());
         holder.binding.itemStandardText.setText(MusicUtil.getSongInfoString(song));
@@ -88,12 +78,15 @@ public class SongRecyclerViewAdapter extends RecyclerView.Adapter<SongRecyclerVi
         holder.itemView.setOnClickListener(view -> {
             if (recycleViewInterface != null) {
                 if (position != RecyclerView.NO_POSITION) {
-                    Log.d(TAG, "onBindViewHolder: click");
                     MusicPlayerRemote.openQueue(songList, position, true);
                 }
             }
         });
+    }
 
+    public void swapDataSet(List<Song> dataSet) {
+        this.songList = dataSet;
+        notifyDataSetChanged();
     }
 
     @Override

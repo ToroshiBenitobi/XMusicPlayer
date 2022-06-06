@@ -16,12 +16,20 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import org.annatv.musicplayer.entity.Song;
+import org.annatv.musicplayer.entity.activitylist.HistoryPlaylistSong;
 import org.annatv.musicplayer.helper.MusicPlayerRemote;
+import org.annatv.musicplayer.loader.PlaylistRepository;
+import org.annatv.musicplayer.loader.PlaylistSongRepository;
+import org.annatv.musicplayer.loader.SongLoader;
 import org.annatv.musicplayer.ui.panel.MusicPanelActivity;
 import org.annatv.musicplayer.ui.player.MiniPlayerFragment;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public class MainActivity extends MusicPanelActivity {
+    public static final String TAG = "MainActivity";
     public static final int REQUEST_CODE = 1;
 
     @Override
@@ -45,11 +53,18 @@ public class MainActivity extends MusicPanelActivity {
 //                .commit();
         fragmentContainerView = findViewById(R.id.fragmentViewMiniPlayer);
         miniPlayerFragment = (MiniPlayerFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentViewMiniPlayer);
-    }
 
-    @Override
-    protected View createContentView() {
-        return null;
+        //todo: test
+//        PlaylistSongRepository repository = new PlaylistSongRepository(getApplicationContext());
+//        List<Song> songList = SongLoader.getAllSongs(getApplicationContext());
+//
+//        repository.insertHistoryPlaylistSongs(new HistoryPlaylistSong(songList.get(0).getId()));
+//        repository.insertHistoryPlaylistSongs(new HistoryPlaylistSong(songList.get(1).getId()));
+//        repository.insertHistoryPlaylistSongs(new HistoryPlaylistSong(songList.get(0).getId()));
+//
+//        repository.getHistorySongs().observe(this, songs -> {
+//            Log.d(TAG, "!!!onCreate: " + songs.size() + " " + songs.size());
+//        });
     }
 
     private void permission() {

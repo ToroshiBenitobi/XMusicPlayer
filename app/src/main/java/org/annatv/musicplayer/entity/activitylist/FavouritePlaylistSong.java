@@ -1,21 +1,20 @@
-package org.annatv.musicplayer.entity;
+package org.annatv.musicplayer.entity.activitylist;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import org.annatv.musicplayer.entity.AbsPlaylistSong;
 
-@Entity
-public class PlaylistSong implements AbsPlaylistSong {
+@Entity(tableName = "favourite_playlist_song")
+public class FavouritePlaylistSong implements AbsPlaylistSong {
     @PrimaryKey(autoGenerate = true)
     public int id;
     @ColumnInfo(name = "song_id")
     public long songId;
-    @ColumnInfo(name = "playlist_id")
-    public int playlistId;
 
-    public PlaylistSong(long songId, int playlistId) {
+    public FavouritePlaylistSong(int id, long songId) {
+        this.id = id;
         this.songId = songId;
-        this.playlistId = playlistId;
     }
 
     public int getId() {
@@ -32,13 +31,5 @@ public class PlaylistSong implements AbsPlaylistSong {
 
     public void setSongId(long songId) {
         this.songId = songId;
-    }
-
-    public int getPlaylistId() {
-        return playlistId;
-    }
-
-    public void setPlaylistId(int playlistId) {
-        this.playlistId = playlistId;
     }
 }

@@ -17,7 +17,9 @@ import org.annatv.musicplayer.adapter.artist.ArtistRecyclerAdapter;
 import org.annatv.musicplayer.adapter.playlist.PlaylistRecyclerAdapter;
 import org.annatv.musicplayer.entity.Playlist;
 import org.annatv.musicplayer.loader.ArtistLoader;
+import org.annatv.musicplayer.loader.PlaylistSongRepository;
 import org.annatv.musicplayer.ui.RecycleViewInterface;
+import org.annatv.musicplayer.util.NavigationUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -56,6 +58,14 @@ public class LibraryFragment extends Fragment implements RecycleViewInterface {
         if (position == adapter.getItemCount() - 1) {
             Playlist playlist = new Playlist("a");
             libraryViewModel.insertPlaylists(playlist);
+        } else if (position == 0) {
+            NavigationUtil.goToPlaylist(getActivity(), PlaylistSongRepository.HISTORY_PLAYLIST);
+        } else if (position == 1) {
+            NavigationUtil.goToPlaylist(getActivity(), PlaylistSongRepository.TOP_PLAYLIST);
+        } else if (position == 2) {
+            NavigationUtil.goToPlaylist(getActivity(), PlaylistSongRepository.FAVOURITE_PLAYLIST);
+        } else {
+            NavigationUtil.goToPlaylist(getActivity(), adapter.getPlaylists().get(position - 3).getPid());
         }
     }
 
