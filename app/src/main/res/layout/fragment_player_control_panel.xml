@@ -6,8 +6,8 @@
                                                    android:layout_height="wrap_content">
 
     <Button
-            android:layout_width="60dp"
-            android:layout_height="60dp" android:id="@+id/playerPlayButton"
+            android:layout_width="56dp"
+            android:layout_height="66dp" android:id="@+id/playerPlayButton"
             android:background="@drawable/ic_pause_white_24dp"
             app:layout_constraintStart_toEndOf="@+id/playerPreSongButton" app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toStartOf="@+id/playerNextSongButton"
