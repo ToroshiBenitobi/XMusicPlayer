@@ -54,6 +54,8 @@ public class PlayerAlbumCoverFragment extends MusicServiceFragment implements Mu
         String path = AlbumLoader.getAlbumArt(getActivity(), MusicPlayerRemote.getCurrentSong().getAlbumId());
         if (path != null) {
             binding.playerAlbumCoverImageView.setImageBitmap(BitmapFactory.decodeFile(path));
+        } else {
+            binding.playerAlbumCoverImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.default_album_art));
         }
     }
 

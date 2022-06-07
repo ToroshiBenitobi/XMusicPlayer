@@ -1,5 +1,6 @@
 package org.annatv.musicplayer.adapter.playlist;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,9 +55,10 @@ public class PlaylistDetailAdapter extends RecyclerView.Adapter<PlaylistDetailAd
         holder.binding.itemStandardTitle.setText(song.getTitle());
         holder.binding.itemStandardText.setText(MusicUtil.getSongInfoString(song));
 
-//        final int padding = activity.getResources().getDimensionPixelSize(R.dimen.default_item_margin) / 2;
-//        holder.binding.itemStandardImage.setPadding(padding, padding, padding, padding);
-        holder.binding.itemStandardImage.setImageBitmap(BitmapFactory.decodeFile(AlbumLoader.getAlbumArt(activity, song.albumId)));
+        Bitmap bitmap = BitmapFactory.decodeFile(AlbumLoader.getAlbumArt(activity, song.albumId));
+        if (bitmap == null)
+            bitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.default_album_art);
+        holder.binding.itemStandardImage.setImageBitmap(bitmap);
 
         holder.binding.itemStandardMenu.setOnClickListener(new View.OnClickListener() {
             @Override

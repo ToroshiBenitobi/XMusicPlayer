@@ -1,5 +1,6 @@
 package org.annatv.musicplayer.adapter.album;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,15 +70,18 @@ public class AlbumDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             binding.albumDetailArtist.setText(album.getArtistName());
             binding.albumDetailCount.setText(String.valueOf(album.getSongCount()));
             binding.albumDetailDuration.setText(MusicUtil.getTotalDurationString(activity, album.songs));
-            binding.albumDetailView.setImageBitmap(BitmapFactory.decodeFile(AlbumLoader.getAlbumArt(activity, album.getId())));
+            Bitmap bitmap = BitmapFactory.decodeFile(AlbumLoader.getAlbumArt(activity, album.getId()));
+            if (bitmap == null)
+                bitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.default_album_art);
+            binding.albumDetailView.setImageBitmap(bitmap);
         } else {
             ItemStandardBinding binding = ((SongHolder) holder).binding;
             final Song song = album.songs.get(position - 1);
             binding.itemStandardTitle.setText(song.getTitle());
             binding.itemStandardText.setText(MusicUtil.getSongInfoString(song));
-            final int padding = activity.getResources().getDimensionPixelSize(R.dimen.default_item_margin) / 2;
-            binding.itemStandardImage.setPadding(padding, padding, padding, padding);
-            binding.itemStandardImage.setImageResource(R.drawable.ic_timer_white_24dp);
+
+            binding.itemStandardImage.setImageResource(R.drawable.ic_music_note_white_24dp);
+            binding.itemStandardImage.setColorFilter(R.color.black);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

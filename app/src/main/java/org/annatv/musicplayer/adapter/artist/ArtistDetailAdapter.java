@@ -1,5 +1,6 @@
 package org.annatv.musicplayer.adapter.artist;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,15 +73,17 @@ public class ArtistDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             binding.artistDetailAlbumCount.setText(String.valueOf(artist.getAlbumCount()));
             binding.artistDetailSongCount.setText(String.valueOf(artist.getSongCount()));
             binding.artistDetailDuration.setText(MusicUtil.getAlbumTotalDurationString(activity, artist.albums));
-//            binding.albumArtistView.setImageBitmap();
+            binding.albumArtistView.setImageBitmap(BitmapFactory.decodeResource(activity.getResources(), R.drawable.default_album_art));
         } else {
             ItemStandardBinding binding = ((ArtistDetailAdapter.AlbumHolder) holder).binding;
             final Album album = artist.albums.get(position - 1);
             binding.itemStandardTitle.setText(album.getTitle());
             binding.itemStandardText.setText(MusicUtil.getAlbumInfoString(activity, album));
-            final int padding = activity.getResources().getDimensionPixelSize(R.dimen.default_item_margin) / 2;
-            binding.itemStandardImage.setPadding(padding, padding, padding, padding);
-            binding.itemStandardImage.setImageBitmap(BitmapFactory.decodeFile(AlbumLoader.getAlbumArt(activity, album.getId())));
+
+            Bitmap bitmap = BitmapFactory.decodeFile(AlbumLoader.getAlbumArt(activity, album.getId()));
+            if (bitmap == null)
+                bitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.default_album_art);
+            binding.itemStandardImage.setImageBitmap(bitmap);
             holder.itemView.setOnClickListener(view -> {
                 recycleViewInterface.onItemClick(position - 1);
             });
