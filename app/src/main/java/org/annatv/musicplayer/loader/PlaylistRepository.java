@@ -43,12 +43,15 @@ public class PlaylistRepository {
         }
     }
 
+    public List<Playlist> getByNameLike(String name) {
+        return playlistDao.getByNameLike(name);
+    }
+
     public void deletePlaylistByIdAsync(int playlistId) {
         Executors.newSingleThreadExecutor().execute(() -> {
             playlistDao.safeDelete(playlistId);
         });
     }
-
 
     public void insertPlaylistsAsync(Playlist... playlists) {
         Executors.newSingleThreadExecutor().execute(() -> {

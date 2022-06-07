@@ -1,5 +1,6 @@
 package org.annatv.musicplayer.adapter.artist;
 
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,11 +50,8 @@ public class ArtistRecyclerAdapter extends RecyclerView.Adapter<ArtistRecyclerAd
         final Artist artist = artistList.get(position);
         holder.binding.itemStandardTitle.setText(artist.getName());
         holder.binding.itemStandardText.setText(MusicUtil.getArtistInfoString(activity, artist));
-//            holder.textView.setVisibility(View.GONE);
+        holder.binding.itemStandardImage.setImageBitmap(BitmapFactory.decodeResource(activity.getResources(), R.drawable.default_artist_image));
 
-        final int padding = activity.getResources().getDimensionPixelSize(R.dimen.default_item_margin) / 2;
-        holder.binding.itemStandardImage.setPadding(padding, padding, padding, padding);
-//        holder.binding.itemStandardImage.setImageResource(R.drawable.ic_timer_white_24dp);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

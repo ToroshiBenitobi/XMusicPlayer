@@ -13,9 +13,9 @@
 
     <fragment
             android:id="@+id/navigation_local"
-            android:name="org.annatv.musicplayer.ui.dashboard.LocalFragment"
+            android:name="org.annatv.musicplayer.ui.dashboard.SearchFragment"
             android:label="@string/title_search"
-            tools:layout="@layout/fragment_local"/>
+            tools:layout="@layout/fragment_search"/>
 
     <fragment
             android:id="@+id/navigation_library"

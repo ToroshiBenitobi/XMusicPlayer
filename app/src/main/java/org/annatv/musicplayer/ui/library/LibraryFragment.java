@@ -53,9 +53,8 @@ public class LibraryFragment extends Fragment implements RecycleViewInterface, A
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         playlistSongRepository = new PlaylistSongRepository(getActivity());
+
         recyclerView = view.findViewById(R.id.recycleViewLibrary);
-        LiveData<List<Playlist>> a = libraryViewModel.getPlaylists();
-        List<Playlist> b = a.getValue();
         adapter = new PlaylistRecyclerAdapter((AppCompatActivity) getActivity(), this, new ArrayList<>());
         libraryViewModel.getPlaylists().observe(this, playlists -> adapter.swapDataSet(playlists));
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());

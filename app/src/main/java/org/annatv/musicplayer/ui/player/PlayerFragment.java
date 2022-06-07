@@ -38,10 +38,6 @@ public abstract class PlayerFragment extends MusicServiceFragment implements Too
         return false;
     }
 
-    protected void toggleFavorite(Song song) {
-        MusicUtil.toggleFavorite(getActivity(), song);
-    }
-
     protected boolean isToolbarShown() {
         return isToolbarShown;
     }

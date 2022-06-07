@@ -17,6 +17,9 @@ public abstract class PlaylistDao {
     @Query("SELECT * FROM playlist WHERE pid = :name")
     public abstract Playlist loadByName(String name);
 
+    @Query("SELECT * FROM playlist WHERE name LIKE '%' || :name || '%' ESCAPE '$'")
+    public abstract List<Playlist> getByNameLike(String name);
+
     @Insert
     public abstract void insertAll(Playlist... playlists);
 

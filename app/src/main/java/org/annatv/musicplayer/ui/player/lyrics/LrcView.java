@@ -50,7 +50,7 @@ public class LrcView extends View implements ILrcView {
     /**
      * 当前高亮歌词的字体颜色为黄色
      */
-    private int mHighLightRowColor = Color.YELLOW;
+    private int mHighLightRowColor = Color.BLUE;
     /**
      * 不高亮歌词的字体颜色为黑色
      */
@@ -107,7 +107,7 @@ public class LrcView extends View implements ILrcView {
     /**
      * 当没有歌词的时候展示的内容
      **/
-    private String mLoadingLrcTip = "Downloading lrc...";
+    private String mLoadingLrcTip = "No Lyrics";
 
     private Paint mPaint;
 
@@ -154,7 +154,7 @@ public class LrcView extends View implements ILrcView {
             if (mLoadingLrcTip != null) {
                 // draw tip when no lrc.
                 mPaint.setColor(mHighLightRowColor);
-                mPaint.setTextSize(mLrcFontSize);
+                mPaint.setTextSize(mNormalRowColor);
                 mPaint.setTextAlign(Align.CENTER);
                 canvas.drawText(mLoadingLrcTip, width / 2, height / 2 - mLrcFontSize, mPaint);
             }

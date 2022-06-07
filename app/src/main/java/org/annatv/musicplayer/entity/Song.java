@@ -2,8 +2,9 @@ package org.annatv.musicplayer.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import org.annatv.musicplayer.R;
 
-public class Song implements Parcelable {
+public class Song implements Parcelable, Searchable {
     public static final Song EMPTY_SONG = new Song(-1, "", -1, -1, -1, "", -1, -1, "", -1, "");
 
     public final long id;
@@ -125,4 +126,19 @@ public class Song implements Parcelable {
             return new Song[size];
         }
     };
+
+    @Override
+    public String getName() {
+        return getTitle();
+    }
+
+    @Override
+    public int getMenuRes() {
+        return R.menu.item_song_menu;
+    }
+
+    @Override
+    public int getCategory() {
+        return Searchable.SONG;
+    }
 }

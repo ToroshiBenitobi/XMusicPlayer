@@ -9,7 +9,7 @@ import org.annatv.musicplayer.util.MusicUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Artist implements Parcelable {
+public class Artist implements Parcelable,Searchable {
     public static final String DEFAULT_NAME = "U/A";
 
     public final List<Album> albums;
@@ -32,6 +32,16 @@ public class Artist implements Parcelable {
             return DEFAULT_NAME;
         }
         return name;
+    }
+
+    @Override
+    public int getMenuRes() {
+        return R.menu.item_artist_menu;
+    }
+
+    @Override
+    public int getCategory() {
+        return Searchable.ARTIST;
     }
 
     public int getSongCount() {

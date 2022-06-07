@@ -3,12 +3,13 @@ package org.annatv.musicplayer.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
+import org.annatv.musicplayer.R;
 import org.annatv.musicplayer.loader.AlbumLoader;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Album implements Parcelable{
+public class Album implements Parcelable, Searchable {
     public final List<Song> songs;
 
     public Album(List<Song> songs) {
@@ -98,4 +99,19 @@ public class Album implements Parcelable{
             return new Album[size];
         }
     };
+
+    @Override
+    public String getName() {
+        return getTitle();
+    }
+
+    @Override
+    public int getMenuRes() {
+        return R.menu.item_album_menu;
+    }
+
+    @Override
+    public int getCategory() {
+        return Searchable.ALBUM;
+    }
 }

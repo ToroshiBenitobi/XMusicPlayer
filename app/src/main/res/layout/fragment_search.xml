@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.dashboard.SearchFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" android:id="@+id/searchRecyclerView"
+            app:layout_constraintTop_toBottomOf="@+id/searchInputText">
+    </androidx.recyclerview.widget.RecyclerView>
+    <TextView
+            android:id="@+id/searchHintText"
+            android:layout_width="wrap_content"
+            android:layout_height="27dp"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:text="@string/no_result" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="@dimen/search_text_height"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/searchInputText"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toTopOf="@+id/searchRecyclerView"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
