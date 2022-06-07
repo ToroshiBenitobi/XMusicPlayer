@@ -37,4 +37,9 @@
     <string name="action_clear_playlist">Clear playlist</string>
     <string name="action_remove_from_favourites">Remove from my favourites</string>
     <string name="delete">Delete</string>
+    <string name="playing_notification_name">Playing notification</string>
+    <string name="playing_notification_description">The playing notification provides actions for play/pause etc.</string>
+    <string name="action_play_pause">Play/Pause</string>
+    <string name="action_previous">Previous</string>
+    <string name="action_next">Next</string>
 </resources>

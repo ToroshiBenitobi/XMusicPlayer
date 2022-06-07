@@ -28,6 +28,8 @@ import org.annatv.musicplayer.entity.Song;
 import org.annatv.musicplayer.entity.activitylist.ActivityList;
 import org.annatv.musicplayer.helper.ShuffleHelper;
 import org.annatv.musicplayer.loader.PlaylistSongRepository;
+import org.annatv.musicplayer.service.notification.PlayingNotification;
+import org.annatv.musicplayer.service.notification.PlayingNotificationImpl;
 import org.annatv.musicplayer.service.playback.Playback;
 import org.annatv.musicplayer.util.MusicUtil;
 import org.annatv.musicplayer.util.PreferenceUtil;
@@ -97,7 +99,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     public boolean pendingQuit = false;
 
-
+    private PlayingNotification playingNotification;
     private Playback playback;
     private List<Song> playingQueue = new ArrayList<>();
     private List<Song> originalPlayingQueue = new ArrayList<>();
@@ -107,7 +109,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private int repeatMode;
     private boolean queuesRestored;
     private boolean pausedByTransientLossOfFocus;
-    //    private PlayingNotification playingNotification;
     private AudioManager audioManager;
     @SuppressWarnings("deprecation")
     private MediaSessionCompat mediaSession;
@@ -171,7 +172,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
         registerReceiver(widgetIntentReceiver, new IntentFilter(APP_WIDGET_UPDATE));
 
-//        initNotification();
+        initNotification();
 
         mediaStoreObserver = new MediaStoreObserver(playerHandler);
         throttledSeekHandler = new ThrottledSeekHandler(playerHandler);
@@ -435,7 +436,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     private void quit() {
         pause();
-//        playingNotification.stop();
+        playingNotification.stop();
 
         closeAudioEffectSession();
         getAudioManager().abandonAudioFocus(audioFocusListener);
@@ -522,20 +523,16 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         return (getAudioManager().requestAudioFocus(audioFocusListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED);
     }
 //    todo: Notification
-//    public void initNotification() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !PreferenceUtil.getInstance(this).classicNotification()) {
-//            playingNotification = new PlayingNotificationImpl24();
-//        } else {
-//            playingNotification = new PlayingNotificationImpl();
-//        }
-//        playingNotification.init(this);
-//    }
-//
-//    public void updateNotification() {
-//        if (playingNotification != null && getCurrentSong().id != -1) {
-//            playingNotification.update();
-//        }
-//    }
+    public void initNotification() {
+            playingNotification = new PlayingNotificationImpl();
+        playingNotification.init(this);
+    }
+
+    public void updateNotification() {
+        if (playingNotification != null && getCurrentSong().id != -1) {
+            playingNotification.update();
+        }
+    }
 
     private void updateMediaSessionPlaybackState() {
         mediaSession.setPlaybackState(
@@ -1013,7 +1010,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private void handleChangeInternal(@NonNull final String what) {
         switch (what) {
             case PLAY_STATE_CHANGED:
-//                updateNotification();
+                updateNotification();
                 updateMediaSessionPlaybackState();
                 final boolean isPlaying = isPlaying();
                 if (!isPlaying && getSongProgressMillis() > 0) {
@@ -1022,12 +1019,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 songPlayCountHelper.notifyPlayStateChanged(isPlaying);
                 break;
             case META_CHANGED:
-//                updateNotification();
+                updateNotification();
                 updateMediaSessionMetaData();
                 savePosition();
                 savePositionInTrack();
                 final Song currentSong = getCurrentSong();
-                //todo: history
                 songRepository.insertHistoryPlaylistSongsAsync(currentSong.id);
                 if (songPlayCountHelper.shouldBumpPlayCount()) {
                     songRepository.addTopSongCountAsync(songPlayCountHelper.getSong().id);
@@ -1079,11 +1075,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 updateMediaSessionMetaData();
                 break;
             case PreferenceUtil.COLORED_NOTIFICATION:
-//                updateNotification();
+                updateNotification();
                 break;
             case PreferenceUtil.CLASSIC_NOTIFICATION:
-//                initNotification();
-//                updateNotification();
+                initNotification();
+                updateNotification();
                 break;
         }
     }
