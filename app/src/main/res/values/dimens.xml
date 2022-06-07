@@ -70,4 +70,5 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="fragment_player_pageview">150dp</dimen>
     <dimen name="item_player_album_cover_height">300dp</dimen>
     <dimen name="search_text_height">50dp</dimen>
+    <dimen name="item_dialog_playlist_title_size">16sp</dimen>
 </resources>

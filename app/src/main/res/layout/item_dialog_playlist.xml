@@ -8,9 +8,10 @@
     <TextView
             android:text="TextView"
             android:layout_width="335dp"
-            android:layout_height="18dp" android:id="@+id/playlistDialogTitle"
+            android:layout_height="wrap_content" android:id="@+id/playlistDialogTitle"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="20dp" android:layout_marginEnd="20dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="5dp" android:layout_marginBottom="5dp"/>
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="5dp" android:layout_marginBottom="5dp"
+            android:textSize="@dimen/item_dialog_playlist_title_size"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
