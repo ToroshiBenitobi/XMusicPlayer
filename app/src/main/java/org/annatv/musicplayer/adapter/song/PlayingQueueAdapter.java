@@ -1,5 +1,6 @@
 package org.annatv.musicplayer.adapter.song;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -68,8 +69,10 @@ public class PlayingQueueAdapter extends RecyclerView.Adapter<PlayingQueueAdapte
 //        final int padding = activity.getResources().getDimensionPixelSize(R.dimen.default_item_margin) / 2;
 //        holder.binding.itemStandardImage.setPadding(padding, padding, padding, padding);
 
-        holder.binding.itemStandardImage.setImageResource(R.drawable.ic_play_arrow_white_24dp);
-        holder.binding.itemStandardImage.setImageBitmap(BitmapFactory.decodeFile(AlbumLoader.getAlbumArt(activity, song.albumId)));
+        Bitmap bitmap = BitmapFactory.decodeFile(AlbumLoader.getAlbumArt(activity, song.albumId));
+        if (bitmap == null)
+            bitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.default_album_art);
+        holder.binding.itemStandardImage.setImageBitmap(bitmap);
 
         holder.binding.itemStandardMenu.setOnClickListener(view -> {
             holder.popupMenu = new PopupMenu(activity, view);

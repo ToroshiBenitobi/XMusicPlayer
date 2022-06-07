@@ -1,5 +1,6 @@
 package org.annatv.musicplayer.adapter.album;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -57,9 +58,10 @@ public class AlbumRecyclerAdapter extends RecyclerView.Adapter<AlbumRecyclerAdap
         holder.binding.itemStandardText.setText(MusicUtil.getAlbumInfoString(activity, album));
 //            holder.textView.setVisibility(View.GONE);
 
-        final int padding = activity.getResources().getDimensionPixelSize(R.dimen.default_item_margin) / 2;
-        holder.binding.itemStandardImage.setPadding(padding, padding, padding, padding);
-        holder.binding.itemStandardImage.setImageBitmap(BitmapFactory.decodeFile(AlbumLoader.getAlbumArt(activity, album.getId())));
+        Bitmap bitmap = BitmapFactory.decodeFile(AlbumLoader.getAlbumArt(activity, album.getId()));
+        if (bitmap == null)
+            bitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.default_album_art);
+        holder.binding.itemStandardImage.setImageBitmap(bitmap);
 
         // todo: menu
 //        holder.binding.itemStandardMenu.setOnClickListener(new View.OnClickListener() {
