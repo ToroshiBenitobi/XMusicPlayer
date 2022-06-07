@@ -209,6 +209,7 @@ public class MusicPlayerRemote {
 
     public static Song getCurrentSong() {
         if (musicService != null) {
+            Log.d(TAG, "getCurrentSongId: " + musicService.getCurrentSong().id);
             return musicService.getCurrentSong();
         }
         return Song.EMPTY_SONG;
