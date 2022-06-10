@@ -152,9 +152,11 @@ public class PlayerControlPanelFragment extends MusicServiceFragment implements 
         switch (MusicPlayerRemote.getShuffleMode()) {
             case MusicService.SHUFFLE_MODE_SHUFFLE:
                 binding.playerShuffleButton.setBackground(getResources().getDrawable(R.drawable.ic_shuffle_white_24dp));
+                binding.playerShuffleButton.setAlpha(1f);
                 break;
             default:
                 binding.playerShuffleButton.setBackground(getResources().getDrawable(R.drawable.ic_shuffle_white_24dp));
+                binding.playerShuffleButton.setAlpha(0.2f);
                 break;
         }
     }
@@ -167,12 +169,15 @@ public class PlayerControlPanelFragment extends MusicServiceFragment implements 
         switch (MusicPlayerRemote.getRepeatMode()) {
             case MusicService.REPEAT_MODE_NONE:
                 binding.playerRepeatModeButton.setBackground(getResources().getDrawable(R.drawable.ic_repeat_white_24dp, null));
+                binding.playerShuffleButton.setAlpha(0.2f);
                 break;
             case MusicService.REPEAT_MODE_ALL:
                 binding.playerRepeatModeButton.setBackground(getResources().getDrawable(R.drawable.ic_repeat_white_24dp, null));
+                binding.playerShuffleButton.setAlpha(1f);
                 break;
             case MusicService.REPEAT_MODE_THIS:
                 binding.playerRepeatModeButton.setBackground(getResources().getDrawable(R.drawable.ic_repeat_one_white_24dp, null));
+                binding.playerShuffleButton.setAlpha(1f);
                 break;
         }
     }
